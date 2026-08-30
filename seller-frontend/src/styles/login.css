@@ -1,0 +1,684 @@
+/* ============================================================
+   Seller Web Portal Login Page Stylesheet
+   ============================================================ */
+
+.sp-login-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: #0b132b;
+  font-family: var(--font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+/* Main Container Layout */
+.sp-login-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   LEFT SIDE: Marketing & Brand Hero Panel
+   ============================================================ */
+
+.sp-login-hero {
+  flex: 0 0 46%;
+  max-width: 46%;
+  background: linear-gradient(145deg, #0b132b 0%, #1c2541 50%, #0f172a 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.5rem 3.5rem 3rem 4rem;
+  color: #ffffff;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Ambient Graphic Background Elements */
+.sp-login-hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.sp-login-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -5%;
+  right: -5%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0) 70%);
+  filter: blur(45px);
+  pointer-events: none;
+}
+
+.sp-hero-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Hero Header / Logo */
+.sp-hero-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.sp-hero-logo-badge {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.35rem;
+  box-shadow: 0 8px 16px -2px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.sp-hero-brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.sp-hero-brand-subtitle {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Hero Main Content */
+.sp-hero-body {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 2.5rem 0;
+}
+
+.sp-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 1.25rem;
+}
+
+.sp-hero-headline {
+  font-size: 2.15rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: #f8fafc;
+  margin-bottom: 1rem;
+}
+
+.sp-hero-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  max-width: 32rem;
+  margin-bottom: 2rem;
+}
+
+/* Feature Benefit Items */
+.sp-hero-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 2.5rem;
+}
+
+.sp-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.sp-benefit-icon-wrapper {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #60a5fa;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* CSS Mini Dashboard Preview Widget */
+.sp-dashboard-preview {
+  position: relative;
+  z-index: 2;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.sp-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sp-preview-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sp-preview-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.sp-preview-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #cbd5e1;
+}
+
+.sp-preview-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+}
+
+.sp-preview-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.sp-mini-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.625rem;
+  padding: 0.75rem;
+}
+
+.sp-mini-stat-label {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+}
+
+.sp-mini-stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sp-mini-sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+}
+
+.sp-spark-bar {
+  width: 4px;
+  background: #3b82f6;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.sp-spark-bar:nth-child(1) { height: 40%; }
+.sp-spark-bar:nth-child(2) { height: 65%; }
+.sp-spark-bar:nth-child(3) { height: 50%; }
+.sp-spark-bar:nth-child(4) { height: 85%; }
+.sp-spark-bar:nth-child(5) { height: 100%; opacity: 1; background: #60a5fa; }
+
+/* Hero Footer */
+.sp-hero-footer {
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   RIGHT SIDE: Login Card & Form Container
+   ============================================================ */
+
+.sp-login-form-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+}
+
+.sp-login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  box-shadow: 
+    0 20px 25px -5px rgba(15, 23, 42, 0.08),
+    0 8px 10px -6px rgba(15, 23, 42, 0.04),
+    0 0 0 1px rgba(15, 23, 42, 0.05);
+  padding: 2.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: spCardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes spCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile top brand banner (only visible on small screens) */
+.sp-mobile-brand-header {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sp-mobile-brand-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.sp-mobile-brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* Card Header */
+.sp-card-header {
+  margin-bottom: 2rem;
+}
+
+.sp-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.65rem;
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 9999px;
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 0.875rem;
+}
+
+.sp-card-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.375rem;
+}
+
+.sp-card-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* Alert Notification Boxes */
+.sp-alert {
+  padding: 0.875rem 1rem;
+  border-radius: 0.625rem;
+  font-size: 0.825rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+  animation: spAlertFade 0.2s ease-out;
+}
+
+@keyframes spAlertFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sp-alert-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.sp-alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.sp-alert-warning {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+/* Form Groups & Inputs */
+.sp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sp-form-label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #334155;
+  letter-spacing: 0.01em;
+}
+
+.sp-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sp-input-prefix-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+.sp-form-input {
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 2.6rem;
+  font-size: 0.9rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.625rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sp-form-input::placeholder {
+  color: #94a3b8;
+}
+
+.sp-form-input:hover:not(:focus) {
+  border-color: #94a3b8;
+}
+
+.sp-form-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.sp-input-wrapper:focus-within .sp-input-prefix-icon {
+  color: #2563eb;
+}
+
+/* Password Toggle Button */
+.sp-password-toggle-btn {
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0.4rem;
+  color: #64748b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.sp-password-toggle-btn:hover {
+  color: #0f172a;
+  background-color: #f1f5f9;
+}
+
+.sp-password-toggle-btn:focus-visible {
+  outline: 2px solid #2563eb;
+}
+
+/* Submit Button */
+.sp-submit-btn {
+  width: 100%;
+  height: 2.875rem;
+  margin-top: 0.5rem;
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  font-size: 0.925rem;
+  font-weight: 600;
+  border: 1px solid #1d4ed8;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: all 0.18s ease;
+}
+
+.sp-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.sp-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.sp-submit-btn:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.4);
+  outline-offset: 2px;
+}
+
+.sp-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Spinner Icon */
+.sp-btn-spinner {
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spSpin 0.7s linear infinite;
+}
+
+@keyframes spSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Footer Help Note */
+.sp-card-footer {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f1f5f9;
+  text-align: center;
+}
+
+.sp-footer-text {
+  font-size: 0.775rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ============================================================ */
+
+/* Laptop / Medium Desktop (1024px to 1279px) */
+@media (max-width: 1279px) {
+  .sp-login-hero {
+    flex: 0 0 44%;
+    max-width: 44%;
+    padding: 3rem 2.5rem;
+  }
+  .sp-hero-headline {
+    font-size: 1.85rem;
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (max-width: 1023px) {
+  .sp-login-hero {
+    flex: 0 0 40%;
+    max-width: 40%;
+    padding: 2.5rem 1.75rem;
+  }
+  .sp-hero-headline {
+    font-size: 1.5rem;
+  }
+  .sp-hero-description {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+  .sp-dashboard-preview {
+    display: none;
+  }
+  .sp-hero-benefits {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Mobile Screen (under 768px) */
+@media (max-width: 767px) {
+  .sp-login-container {
+    flex-direction: column;
+  }
+  .sp-login-hero {
+    display: none; /* Hide left panel on mobile */
+  }
+  .sp-login-form-wrapper {
+    padding: 2rem 1.25rem;
+    align-items: center;
+    background-color: #0b132b;
+    min-height: 100vh;
+  }
+  .sp-mobile-brand-header {
+    display: flex;
+  }
+  .sp-mobile-brand-title {
+    color: #ffffff;
+  }
+  .sp-login-card {
+    border-radius: 1rem;
+    padding: 1.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  }
+  .sp-card-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* Very Small Mobile Screens (under 400px) */
+@media (max-width: 399px) {
+  .sp-login-card {
+    padding: 1.35rem 1.15rem;
+  }
+  .sp-form-input {
+    font-size: 0.85rem;
+  }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .sp-login-card,
+  .sp-alert,
+  .sp-btn-spinner {
+    animation: none !important;
+    transition: none !important;
+  }
+}
