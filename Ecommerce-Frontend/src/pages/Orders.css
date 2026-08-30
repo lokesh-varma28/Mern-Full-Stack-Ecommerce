@@ -1,0 +1,106 @@
+/* =============================================
+   Orders.css  –  Amazon-style orders page
+   ============================================= */
+.ord-page  { background: #eaeded; min-height: 100vh; padding: 24px 0 60px; font-family: "Amazon Ember", Arial, sans-serif; }
+.ord-inner { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+
+/* ── Page header ── */
+.ord-page-header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #ddd; }
+.ord-page-title  { font-size: 1.65rem; font-weight: 400; color: #0f1111; margin: 0 0 4px; }
+.ord-page-sub    { font-size: 0.85rem; color: #565959; margin: 0; }
+
+/* ── Loading ── */
+.ord-loading { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 60px 0; color: #565959; font-size: 0.9rem; }
+.ord-spinner { width: 40px; height: 40px; border: 4px solid #e0e0e0; border-top-color: #f90; border-radius: 50%; animation: ord-spin 0.75s linear infinite; }
+@keyframes ord-spin { to { transform: rotate(360deg); } }
+
+/* ── Empty ── */
+.ord-empty       { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 60px 24px; text-align: center; }
+.ord-empty-icon  { font-size: 3rem; margin-bottom: 12px; }
+.ord-empty-title { font-size: 1.25rem; font-weight: 700; color: #0f1111; margin: 0 0 8px; }
+.ord-empty-sub   { font-size: 0.9rem; color: #565959; margin: 0 0 20px; }
+.ord-shop-btn    { display: inline-block; background: linear-gradient(180deg, #FFD814, #FFA41C); border: 1px solid #FCD200; border-radius: 20px; padding: 10px 28px; font-size: 0.88rem; font-weight: 700; color: #111; text-decoration: none; }
+
+/* ── Order list ── */
+.ord-list { display: flex; flex-direction: column; gap: 16px; }
+
+/* ── Order card ── */
+.ord-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+
+/* card header */
+.ord-card-header {
+    background: #f0f2f2;
+    border-bottom: 1px solid #ddd;
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.ord-header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.ord-meta-group  { display: flex; flex-direction: column; gap: 2px; }
+.ord-meta-label  { font-size: 0.68rem; font-weight: 700; color: #565959; text-transform: uppercase; letter-spacing: 0.06em; }
+.ord-meta-val    { font-size: 0.88rem; color: #0f1111; font-weight: 500; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ord-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.ord-id           { font-size: 0.78rem; color: #565959; }
+
+/* status badge */
+.ord-status-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+/* ── Items ── */
+.ord-items { padding: 0 20px; }
+.ord-item  { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+.ord-item:last-of-type { border-bottom: none; }
+
+.ord-item-img-wrap { width: 80px; height: 80px; flex-shrink: 0; border: 1px solid #e7e7e7; border-radius: 4px; background: #f8f8f8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.ord-item-img      { width: 100%; height: 100%; object-fit: contain; }
+
+.ord-item-info     { flex: 1; min-width: 0; }
+.ord-item-title    { font-size: 0.92rem; font-weight: 500; color: #0f1111; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ord-item-price    { font-size: 0.8rem; color: #565959; margin: 0 0 2px; }
+.ord-item-qty      { font-size: 0.8rem; color: #565959; margin: 0; }
+
+.ord-item-subtotal { font-size: 1rem; font-weight: 700; color: #0f1111; white-space: nowrap; margin-left: auto; padding-top: 2px; }
+
+.ord-return-btn    { padding: 5px 12px; background: #fff; border: 1px solid #e47911; border-radius: 3px; font-size: 0.75rem; font-weight: 700; color: #e47911; cursor: pointer; white-space: nowrap; font-family: inherit; transition: background 0.12s; }
+.ord-return-btn:hover { background: #fff4e0; }
+
+.ord-toggle-btn    { display: block; width: 100%; padding: 10px 0; background: none; border: none; border-top: 1px solid #f0f0f0; font-size: 0.82rem; color: #007185; font-weight: 600; cursor: pointer; font-family: inherit; text-align: center; transition: color 0.12s; }
+.ord-toggle-btn:hover { color: #c7511f; }
+
+/* ── Card footer ── */
+.ord-card-footer { padding: 14px 20px; border-top: 1px solid #e7e7e7; display: flex; gap: 10px; flex-wrap: wrap; background: #fafafa; }
+
+.ord-btn { display: inline-flex; align-items: center; gap: 5px; padding: 8px 18px; border-radius: 3px; font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: none; border: 1px solid; font-family: inherit; transition: background 0.12s, box-shadow 0.12s; white-space: nowrap; }
+
+.ord-btn--track   { background: linear-gradient(180deg, #f7dfa5, #f0c14b); border-color: #a88734; color: #111; }
+.ord-btn--track:hover { background: linear-gradient(180deg, #f5d78e, #eeb933); }
+
+.ord-btn--invoice { background: #fff; border-color: #007185; color: #007185; }
+.ord-btn--invoice:hover { background: #f0f9fb; }
+
+.ord-btn--cancel  { background: #fff; border-color: #cc0c39; color: #cc0c39; margin-left: auto; }
+.ord-btn--cancel:hover { background: #fff1f2; }
+
+/* ── Toast ── */
+.ord-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); padding: 12px 28px; border-radius: 4px; font-size: 0.88rem; font-weight: 600; z-index: 9999; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,0.2); animation: ord-fadeup 0.25s ease; }
+@keyframes ord-fadeup { from { opacity:0; transform:translateX(-50%) translateY(10px);} to {opacity:1; transform:translateX(-50%) translateY(0);} }
+.ord-toast--success { background: #007600; color: #fff; }
+.ord-toast--error   { background: #cc0c39; color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .ord-card-header { flex-direction: column; }
+    .ord-header-right { align-items: flex-start; }
+    .ord-item-subtotal { margin-left: 0; }
+    .ord-btn--cancel { margin-left: 0; }
+}

@@ -1,0 +1,160 @@
+/* =============================================
+   Footer.css  –  Amazon-accurate footer
+   ============================================= */
+
+.ft-root {
+    background: #232f3e;
+    color: #ddd;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    margin-top: auto;
+    /* keep footer above mobile tab bar */
+    padding-bottom: 0;
+}
+
+/* ── Back to top ── */
+.ft-back-top {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    background: #37475a;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.ft-back-top:hover { background: #485769; }
+
+/* ── Main columns ── */
+.ft-main {
+    padding: 36px 20px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.ft-cols {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.ft-col-heading {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px;
+}
+
+.ft-col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ft-link {
+    font-size: 0.82rem;
+    color: #ddd;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.12s;
+}
+.ft-link:hover { color: #fff; }
+
+/* ── Logo bar ── */
+.ft-logo-bar {
+    display: flex;
+    justify-content: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.ft-logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    padding: 4px 6px;
+    transition: border-color 0.15s;
+}
+.ft-logo:hover      { border-color: #fff; }
+.ft-logo-text       { font-size: 1.3rem; font-weight: 900; color: #fff; line-height: 1; }
+.ft-logo-text2      { font-size: 1.3rem; font-weight: 900; color: #f90; line-height: 1; }
+.ft-logo-dot        { font-size: 0.75rem; font-weight: 700; color: #f90; align-self: flex-end; margin-bottom: 2px; }
+
+/* ── Legal ── */
+.ft-legal {
+    padding: 14px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ft-legal-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-bottom: 8px;
+}
+
+.ft-legal-link {
+    font-size: 0.75rem;
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.12s;
+}
+.ft-legal-link:hover { color: #fff; }
+
+.ft-copyright {
+    font-size: 0.72rem;
+    color: #aaa;
+    margin: 0;
+}
+
+/* ── Mobile quick links (hidden on desktop) ── */
+.ft-mobile-links {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 12px 0;
+    background: #131921;
+}
+
+.ft-ml {
+    font-size: 0.78rem;
+    color: #ddd;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    white-space: nowrap;
+}
+.ft-ml:last-child { border-right: none; }
+.ft-ml:hover { color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+    .ft-cols { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .ft-cols            { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .ft-main            { padding: 24px 16px 20px; }
+    .ft-col-heading     { font-size: 0.82rem; }
+    .ft-link            { font-size: 0.78rem; }
+    .ft-mobile-links    { display: flex; }
+    /* footer above bottom tab bar */
+    .ft-root            { padding-bottom: 60px; }
+}
+
+@media (max-width: 400px) {
+    .ft-cols { grid-template-columns: 1fr; }
+}

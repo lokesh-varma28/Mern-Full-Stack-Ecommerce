@@ -1,0 +1,436 @@
+/* =============================================
+   Address.css  –  Amazon-style address page
+   ============================================= */
+
+.addr-page {
+    background: #eaeded;
+    min-height: 100vh;
+    padding: 24px 0 60px;
+    font-family: "Amazon Ember", Arial, sans-serif;
+}
+
+.addr-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* ── Page header ── */
+.addr-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.addr-page-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: #0f1111;
+    margin: 0 0 4px;
+}
+
+.addr-page-sub {
+    font-size: 0.85rem;
+    color: #565959;
+    margin: 0;
+}
+
+/* ── Layout: cards col + form col ── */
+.addr-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.addr-cards-col {
+    flex: 1;
+    min-width: 0;
+}
+
+.addr-form-col {
+    width: 460px;
+    flex-shrink: 0;
+}
+
+/* ── Address grid ── */
+.addr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+/* ── Base card ── */
+.addr-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+/* ── Add new card ── */
+.addr-card--new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 180px;
+    border: 2px dashed #a6a6a6;
+    background: #fafafa;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 8px;
+    transition: border-color 0.18s, background 0.18s;
+}
+.addr-card--new:hover {
+    border-color: #007185;
+    background: #f0f9fb;
+}
+.addr-new-icon  { font-size: 2rem; color: #007185; line-height: 1; }
+.addr-new-label { font-size: 0.92rem; font-weight: 700; color: #007185; }
+
+/* ── Saved address card ── */
+.addr-card--saved {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.addr-card--saved:hover {
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    border-color: #007185;
+}
+
+/* ── Type badge ── */
+.addr-type-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.addr-type-badge--home  { background: #e6f2ff; color: #0066c0; }
+.addr-type-badge--work  { background: #fff4e0; color: #c7511f; }
+.addr-type-badge--other { background: #f0f0f0; color: #555; }
+
+/* ── Address text ── */
+.addr-name   { font-size: 0.92rem; font-weight: 700; color: #0f1111; margin: 0; }
+.addr-line   { font-size: 0.85rem; color: #0f1111; margin: 0; line-height: 1.5; }
+.addr-line--muted { color: #565959; }
+.addr-mobile { font-size: 0.85rem; color: #565959; margin-top: 6px; }
+
+/* ── Card action row ── */
+.addr-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #e7e7e7;
+}
+.addr-action-btn {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    transition: color 0.12s;
+}
+.addr-action-btn--edit   { color: #007185; }
+.addr-action-btn--edit:hover { color: #c7511f; text-decoration: underline; }
+.addr-action-btn--delete { color: #cc0c39; }
+.addr-action-btn--delete:hover { text-decoration: underline; }
+.addr-action-sep { color: #ccc; font-size: 0.8rem; user-select: none; }
+
+/* ── Empty state ── */
+.addr-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.addr-empty-icon  { font-size: 2.5rem; margin-bottom: 10px; }
+.addr-empty-title { font-size: 1rem; font-weight: 700; color: #0f1111; margin: 0 0 6px; }
+.addr-empty-sub   { font-size: 0.85rem; color: #565959; margin: 0; }
+
+/* ── Loading ── */
+.addr-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 60px 0;
+    color: #565959;
+    font-size: 0.9rem;
+}
+.addr-spinner {
+    width: 38px;
+    height: 38px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #f90;
+    border-radius: 50%;
+    animation: addr-spin 0.75s linear infinite;
+}
+@keyframes addr-spin { to { transform: rotate(360deg); } }
+
+/* ════════════════════════════════════════
+   FORM CARD
+   ════════════════════════════════════════ */
+.addr-form-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px 28px 28px;
+    position: sticky;
+    top: 80px;
+}
+
+.addr-form-title {
+    font-size: 1.375rem;
+    font-weight: 400;
+    color: #0f1111;
+    margin: 0 0 2px;
+}
+
+.addr-form-sub {
+    font-size: 0.82rem;
+    color: #565959;
+    margin: 0 0 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+/* ── Form groups ── */
+.addr-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 14px;
+}
+
+.addr-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.addr-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0f1111;
+}
+
+.addr-label--optional {
+    font-weight: 400;
+    color: #565959;
+}
+
+.addr-req { color: #cc0c39; }
+
+.addr-hint {
+    font-size: 0.75rem;
+    color: #565959;
+    margin: 0;
+}
+
+/* ── Inputs ── */
+.addr-input {
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    padding: 8px 10px;
+    font-size: 0.88rem;
+    color: #0f1111;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.addr-input:focus {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.25);
+}
+
+.addr-input--half { max-width: 160px; }
+
+.addr-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: #fff;
+    padding-right: 28px;
+    cursor: pointer;
+}
+
+/* ── Phone prefix ── */
+.addr-phone-wrap {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.addr-phone-wrap:focus-within {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.25);
+}
+.addr-phone-prefix {
+    background: #f0f2f2;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    color: #0f1111;
+    font-weight: 600;
+    border-right: 1px solid #a6a6a6;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.addr-input--phone {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    box-shadow: none !important;
+}
+.addr-input--phone:focus { box-shadow: none !important; }
+
+/* ── Address type pills ── */
+.addr-type-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.addr-type-opt {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #a6a6a6;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0f1111;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    user-select: none;
+}
+.addr-type-opt:hover { border-color: #007185; color: #007185; }
+.addr-type-opt--active {
+    border-color: #007185;
+    background: #e6f7f9;
+    color: #007185;
+}
+.addr-type-radio { display: none; }
+
+/* ── Form actions ── */
+.addr-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e7e7e7;
+}
+
+.addr-save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex: 1;
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border: 1px solid #FCD200;
+    border-radius: 20px;
+    padding: 10px 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #111;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(213, 154, 0, 0.35);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    font-family: inherit;
+}
+.addr-save-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%);
+    box-shadow: 0 3px 8px rgba(213, 154, 0, 0.5);
+}
+.addr-save-btn:active:not(:disabled) { transform: scale(0.98); }
+.addr-save-btn:disabled { opacity: 0.6; cursor: wait; }
+
+.addr-cancel-btn {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f1111;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s, border-color 0.12s;
+}
+.addr-cancel-btn:hover { background: #f7f7f7; border-color: #007185; color: #007185; }
+
+/* ── Spinner inside button ── */
+.addr-btn-spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: addr-spin 0.65s linear infinite;
+}
+
+/* ── Toast ── */
+.addr-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    animation: addr-fadeup 0.25s ease;
+}
+@keyframes addr-fadeup {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.addr-toast--success { background: #007600; color: #fff; }
+.addr-toast--error   { background: #cc0c39; color: #fff; }
+.addr-toast--warn    { background: #e47911; color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+    .addr-layout    { flex-direction: column; }
+    .addr-form-col  { width: 100%; }
+    .addr-form-card { position: static; }
+}
+
+@media (max-width: 600px) {
+    .addr-page-title { font-size: 1.35rem; }
+    .addr-form-row   { grid-template-columns: 1fr; }
+    .addr-form-card  { padding: 18px 16px; }
+    .addr-grid       { grid-template-columns: 1fr; }
+}

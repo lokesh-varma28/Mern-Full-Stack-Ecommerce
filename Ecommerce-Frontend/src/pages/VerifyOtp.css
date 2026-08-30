@@ -1,0 +1,206 @@
+/* =============================================
+   VerifyOtp.css  –  OTP page extras
+   (base layout comes from Login.css)
+   ============================================= */
+
+/* ── Wider card for the 6-box row ── */
+.otp-card {
+    width: 380px;
+    padding-top: 62px;
+    align-items: center;
+    text-align: center;
+}
+
+/* ── Shield icon ── */
+.otp-shield {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    color: #ece8e1;
+    flex-shrink: 0;
+}
+.otp-shield svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* ── Heading + subtext ── */
+.otp-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f2f5f7;
+    margin: 0 0 6px;
+}
+
+.otp-subtext {
+    font-size: 0.82rem;
+    color: rgba(230, 236, 240, 0.75);
+    margin: 0 0 2px;
+}
+
+.otp-email {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ece8e1;
+    margin: 0 0 22px;
+    word-break: break-all;
+}
+
+/* ── 6 OTP digit boxes ── */
+.otp-boxes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.otp-box {
+    width: 46px;
+    height: 54px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f2f5f7;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    transition:
+        border-color 0.18s ease,
+        background   0.18s ease,
+        box-shadow   0.18s ease,
+        transform    0.12s ease;
+    caret-color: transparent;
+    /* hide number spinner arrows */
+    -moz-appearance: textfield;
+}
+.otp-box::-webkit-outer-spin-button,
+.otp-box::-webkit-inner-spin-button { display: none; }
+
+.otp-box:focus {
+    border-color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* filled (has a digit) */
+.otp-box--filled {
+    border-color: #febd69;
+    background: rgba(254, 189, 105, 0.15);
+    color: #fff;
+}
+
+/* ── Verify button overrides ── */
+.otp-verify-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* disabled state */
+    transition: background 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+}
+.otp-verify-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.otp-btn-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── Spinner inside button ── */
+.otp-spinner {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2.5px solid rgba(40, 40, 40, 0.25);
+    border-top-color: #2a2a2a;
+    border-radius: 50%;
+    animation: otp-spin 0.65s linear infinite;
+    flex-shrink: 0;
+}
+@keyframes otp-spin { to { transform: rotate(360deg); } }
+
+/* ── Resend row ── */
+.otp-resend-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.otp-resend-text {
+    font-size: 0.8rem;
+    color: rgba(230, 236, 240, 0.75);
+}
+
+.otp-resend-btn {
+    background: none;
+    border: none;
+    color: #ece8e1;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+}
+.otp-resend-btn:hover:not(:disabled) { color: #febd69; }
+.otp-resend-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.otp-cooldown {
+    font-size: 0.82rem;
+    color: #febd69;
+    font-weight: 600;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* ── Toast ── */
+.otp-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    animation: otp-fadeup 0.25s ease;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+@keyframes otp-fadeup {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.otp-toast--success { background: rgba(0, 118, 0, 0.92);   color: #fff; }
+.otp-toast--error   { background: rgba(204, 12, 57, 0.92);  color: #fff; }
+.otp-toast--warn    { background: rgba(228, 121, 17, 0.92); color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 440px) {
+    .otp-card  { width: 90%; padding-top: 56px; }
+    .otp-box   { width: 38px; height: 46px; font-size: 1.2rem; gap: 6px; }
+    .otp-boxes { gap: 7px; }
+}

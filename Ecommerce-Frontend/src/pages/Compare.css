@@ -1,0 +1,391 @@
+/* =============================================
+   Compare.css  –  Amazon-style comparison page
+   ============================================= */
+
+.cmp-page {
+    background: #eaeded;
+    min-height: 100vh;
+    padding: 24px 0 60px;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    color: #0f1111;
+}
+
+.cmp-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* ── Toast ── */
+.cmp-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #232f3e;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    animation: cmp-fadeup 0.25s ease;
+}
+@keyframes cmp-fadeup {
+    from { opacity:0; transform:translateX(-50%) translateY(10px); }
+    to   { opacity:1; transform:translateX(-50%) translateY(0); }
+}
+
+/* ── Empty state ── */
+.cmp-empty {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 80px 40px;
+    text-align: center;
+    margin-top: 20px;
+}
+.cmp-empty-icon  { font-size: 3.5rem; margin-bottom: 16px; }
+.cmp-empty-title { font-size: 1.5rem; font-weight: 700; color: #0f1111; margin: 0 0 10px; }
+.cmp-empty-sub   { font-size: 0.92rem; color: #565959; margin: 0 0 24px; line-height: 1.6; }
+.cmp-empty-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border: 1px solid #FCD200;
+    border-radius: 20px;
+    padding: 11px 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(213,154,0,0.35);
+    transition: background 0.15s, box-shadow 0.15s;
+}
+.cmp-empty-btn:hover {
+    background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%);
+    box-shadow: 0 3px 10px rgba(213,154,0,0.5);
+}
+
+/* ── Page header ── */
+.cmp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+.cmp-heading { font-size: 1.65rem; font-weight: 400; color: #0f1111; margin: 0 0 4px; }
+.cmp-sub     { font-size: 0.82rem; color: #565959; margin: 0; }
+
+.cmp-header-actions { display: flex; gap: 10px; align-items: center; }
+
+.cmp-add-more-btn {
+    padding: 8px 18px;
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border: 1px solid #FCD200;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #111;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.12s;
+}
+.cmp-add-more-btn:hover { background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%); }
+
+.cmp-clear-btn {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #cc0c39;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #cc0c39;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.12s;
+}
+.cmp-clear-btn:hover { background: #fff1f2; }
+
+/* ── Scroll wrapper ── */
+.cmp-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ── Table base ── */
+.cmp-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    min-width: 700px;
+}
+
+/* ── Label column (leftmost) ── */
+.cmp-th--label,
+.cmp-td--label {
+    width: 160px;
+    min-width: 130px;
+    background: #f0f2f2;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #565959;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 16px;
+    vertical-align: middle;
+    border-right: 2px solid #e7e7e7;
+    white-space: nowrap;
+}
+.cmp-th--label { border-bottom: 2px solid #e7e7e7; }
+
+/* ── Product columns ── */
+.cmp-th--product {
+    padding: 0;
+    vertical-align: top;
+    border-bottom: 2px solid #e7e7e7;
+    border-right: 1px solid #f0f0f0;
+}
+.cmp-th--product:last-child { border-right: none; }
+
+/* ── Product head cell ── */
+.cmp-product-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px 16px;
+    gap: 12px;
+    position: relative;
+    background: #fff;
+}
+
+/* ── Remove button ── */
+.cmp-remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    background: #f0f2f2;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    font-size: 0.72rem;
+    color: #565959;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    line-height: 1;
+    padding: 0;
+}
+.cmp-remove-btn:hover {
+    background: #fff1f2;
+    color: #cc0c39;
+    border-color: #cc0c39;
+}
+
+/* ── Product image ── */
+.cmp-img-link { display: block; width: 100%; }
+.cmp-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 180px;
+    margin: 0 auto;
+    background: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cmp-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+.cmp-img-link:hover .cmp-img { transform: scale(1.06); }
+
+/* ── Product title in header ── */
+.cmp-product-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #0f1111;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+}
+.cmp-product-title:hover { color: #c7511f; text-decoration: underline; }
+
+/* ── Spec rows ── */
+.cmp-row { border-bottom: 1px solid #f0f0f0; }
+.cmp-row:last-child { border-bottom: none; }
+.cmp-row:nth-child(even) { background: #fafafa; }
+.cmp-row:hover { background: #f7f7f7; }
+
+.cmp-td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    font-size: 0.88rem;
+    color: #0f1111;
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+}
+.cmp-td:last-child { border-right: none; }
+.cmp-td--label { text-align: left; }
+
+/* ── Spec value badges ── */
+.cmp-price {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f1111;
+}
+.cmp-stars      { display: inline-flex; align-items: center; gap: 2px; font-size: 1rem; }
+.cmp-star       { color: #ddd; }
+.cmp-star--on   { color: #f90; }
+.cmp-star-val   { font-size: 0.78rem; color: #007185; margin-left: 4px; font-weight: 600; }
+
+.cmp-badge      { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: 700; }
+.cmp-badge--cat { background: #e8f0fe; color: #0066c0; border: 1px solid #c5d0f7; }
+
+.cmp-in  { color: #007600; font-weight: 700; font-size: 0.82rem; }
+.cmp-low { color: #e47911; font-weight: 700; font-size: 0.82rem; }
+.cmp-oos { color: #cc0c39; font-weight: 700; font-size: 0.82rem; }
+
+.cmp-discount-badge {
+    display: inline-block;
+    background: #cc0c39;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.cmp-desc {
+    font-size: 0.78rem;
+    color: #565959;
+    line-height: 1.5;
+    text-align: left;
+    display: block;
+}
+
+/* ── Actions row ── */
+.cmp-row--actions { background: #fff !important; }
+.cmp-action-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 0;
+}
+
+/* Add to Cart button */
+.cmp-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 200px;
+    padding: 9px 12px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    white-space: nowrap;
+}
+.cmp-cart-btn:active:not(:disabled) { transform: scale(0.97); }
+.cmp-cart-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.cmp-cart-btn--idle {
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border-color: #FCD200;
+    color: #111;
+    box-shadow: 0 2px 5px rgba(213,154,0,0.3);
+}
+.cmp-cart-btn--idle:hover:not(:disabled) {
+    background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%);
+    box-shadow: 0 3px 8px rgba(213,154,0,0.5);
+}
+.cmp-cart-btn--loading {
+    background: linear-gradient(180deg, #f5d06a, #e9a829);
+    border-color: #d4a017;
+    color: #111;
+    cursor: wait;
+}
+.cmp-cart-btn--added {
+    background: linear-gradient(180deg, #5cb85c, #4cae4c);
+    border-color: #3d8b3d;
+    color: #fff;
+}
+.cmp-cart-btn--error {
+    background: linear-gradient(180deg, #f46a6a, #d9534f);
+    border-color: #c9302c;
+    color: #fff;
+}
+
+/* View Details link button */
+.cmp-view-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #007185;
+    background: #fff;
+    color: #007185;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+    box-sizing: border-box;
+}
+.cmp-view-btn:hover { background: #f0f9fb; color: #c7511f; border-color: #c7511f; }
+
+/* Button spinner */
+.cmp-btn-spin {
+    display: inline-block;
+    width: 12px; height: 12px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: cmp-spin 0.65s linear infinite;
+    flex-shrink: 0;
+}
+@keyframes cmp-spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .cmp-th--label,
+    .cmp-td--label { width: 110px; min-width: 100px; font-size: 0.72rem; padding: 12px; }
+    .cmp-td        { padding: 12px; }
+    .cmp-img-wrap  { max-width: 130px; }
+}
+
+@media (max-width: 640px) {
+    .cmp-heading   { font-size: 1.3rem; }
+    .cmp-header    { flex-direction: column; }
+    .cmp-table     { min-width: 560px; }
+}

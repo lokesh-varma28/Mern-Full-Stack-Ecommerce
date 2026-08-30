@@ -1,0 +1,597 @@
+/* =============================================
+   Design System Tokens - Premium E-commerce UI
+   Amazon-level usability, Apple-level cleanliness
+   ============================================= */
+
+/* ══════════════════════════════════════════
+   COLOR PALETTE
+   ══════════════════════════════════════════ */
+:root {
+    /* ── Brand Colors ── */
+    --brand-navy:       #131921;
+    --brand-dark:       #232f3e;
+    --brand-orange:     #ff9900;
+    --brand-orange-hover: #e47911;
+    --brand-teal:       #007185;
+    --brand-yellow:     #febd69;
+    
+    /* ── Functional Colors ── */
+    --color-success:    #007600;
+    --color-success-bg: #f0fdf4;
+    --color-warning:    #f59e0b;
+    --color-warning-bg: #fef3c7;
+    --color-error:      #cc0c39;
+    --color-error-bg:   #fff1f2;
+    --color-info:       #0066c0;
+    --color-info-bg:    #e8f0fe;
+    
+    /* ── Neutral Palette ── */
+    --gray-50:  #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* ── Background Colors ── */
+    --bg-primary:       #ffffff;
+    --bg-secondary:     #eaeded;
+    --bg-tertiary:      #f8f9fa;
+    --bg-overlay:       rgba(0, 0, 0, 0.5);
+    
+    /* ── Text Colors ── */
+    --text-primary:     #0f1111;
+    --text-secondary:   #565959;
+    --text-tertiary:    #888c8c;
+    --text-inverse:     #ffffff;
+    
+    /* ── Border Colors ── */
+    --border-primary:   #d5d9d9;
+    --border-secondary: #e3e6e6;
+    --border-focus:     #e77600;
+    --border-error:     #d13212;
+    
+    /* ── Interactive States ── */
+    --hover-bg:         #f7fafa;
+    --active-bg:        #e8eced;
+    --disabled-bg:      #f3f3f3;
+    --disabled-text:    #b3b3b3;
+}
+
+/* ══════════════════════════════════════════
+   TYPOGRAPHY SCALE
+   ══════════════════════════════════════════ */
+:root {
+    /* ── Font Families ── */
+    --font-primary:     "Amazon Ember", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono:        "SF Mono", Monaco, "Cascadia Code", "Courier New", monospace;
+    
+    /* ── Font Sizes ── */
+    --text-xs:   0.688rem;  /* 11px */
+    --text-sm:   0.813rem;  /* 13px */
+    --text-base: 0.875rem;  /* 14px - body default */
+    --text-lg:   1rem;      /* 16px */
+    --text-xl:   1.125rem;  /* 18px */
+    --text-2xl:  1.375rem;  /* 22px */
+    --text-3xl:  1.75rem;   /* 28px */
+    --text-4xl:  2.25rem;   /* 36px */
+    --text-5xl:  3rem;      /* 48px */
+    
+    /* ── Font Weights ── */
+    --font-normal:    400;
+    --font-medium:    500;
+    --font-semibold:  600;
+    --font-bold:      700;
+    --font-extrabold: 800;
+    
+    /* ── Line Heights ── */
+    --leading-tight:   1.25;
+    --leading-normal:  1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose:   2;
+    
+    /* ── Letter Spacing ── */
+    --tracking-tight:  -0.01em;
+    --tracking-normal: 0;
+    --tracking-wide:   0.025em;
+}
+
+/* ══════════════════════════════════════════
+   SPACING SCALE
+   ══════════════════════════════════════════ */
+:root {
+    --space-1:  0.25rem;  /* 4px */
+    --space-2:  0.5rem;   /* 8px */
+    --space-3:  0.75rem;  /* 12px */
+    --space-4:  1rem;     /* 16px */
+    --space-5:  1.25rem;  /* 20px */
+    --space-6:  1.5rem;   /* 24px */
+    --space-8:  2rem;     /* 32px */
+    --space-10: 2.5rem;   /* 40px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
+    --space-20: 5rem;     /* 80px */
+    --space-24: 6rem;     /* 96px */
+}
+
+/* ══════════════════════════════════════════
+   BORDER RADIUS
+   ══════════════════════════════════════════ */
+:root {
+    --radius-sm:   0.188rem; /* 3px */
+    --radius-base: 0.25rem;  /* 4px */
+    --radius-md:   0.375rem; /* 6px */
+    --radius-lg:   0.5rem;   /* 8px */
+    --radius-xl:   0.75rem;  /* 12px */
+    --radius-2xl:  1rem;     /* 16px */
+    --radius-full: 9999px;
+}
+
+/* ══════════════════════════════════════════
+   SHADOWS
+   ══════════════════════════════════════════ */
+:root {
+    --shadow-xs:  0 1px 2px 0 rgba(15, 17, 17, 0.05);
+    --shadow-sm:  0 2px 4px 0 rgba(15, 17, 17, 0.1);
+    --shadow-base: 0 2px 5px 0 rgba(15, 17, 17, 0.15);
+    --shadow-md:  0 4px 8px 0 rgba(15, 17, 17, 0.12);
+    --shadow-lg:  0 6px 20px 0 rgba(15, 17, 17, 0.14);
+    --shadow-xl:  0 10px 40px 0 rgba(15, 17, 17, 0.18);
+    --shadow-2xl: 0 20px 60px 0 rgba(15, 17, 17, 0.24);
+    
+    /* Focus shadows */
+    --shadow-focus: 0 0 0 3px rgba(228, 121, 17, 0.25);
+    --shadow-focus-error: 0 0 0 3px rgba(209, 50, 18, 0.25);
+}
+
+/* ══════════════════════════════════════════
+   TRANSITIONS
+   ══════════════════════════════════════════ */
+:root {
+    --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base:   200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow:   300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ══════════════════════════════════════════
+   Z-INDEX LAYERS
+   ══════════════════════════════════════════ */
+:root {
+    --z-base:     1;
+    --z-dropdown: 100;
+    --z-sticky:   200;
+    --z-fixed:    300;
+    --z-backdrop: 400;
+    --z-modal:    500;
+    --z-toast:    600;
+    --z-tooltip:  700;
+}
+
+/* ══════════════════════════════════════════
+   COMPONENT TOKENS - BUTTONS
+   ══════════════════════════════════════════ */
+:root {
+    /* Primary Button (Orange) */
+    --btn-primary-bg:       #ffd814;
+    --btn-primary-border:   #fcd200;
+    --btn-primary-text:     #0f1111;
+    --btn-primary-hover-bg: #f7ca00;
+    --btn-primary-hover-border: #f2c200;
+    
+    /* Secondary Button (White) */
+    --btn-secondary-bg:     #ffffff;
+    --btn-secondary-border: #d5d9d9;
+    --btn-secondary-text:   #0f1111;
+    --btn-secondary-hover-bg: #f7fafa;
+    --btn-secondary-hover-border: #adb1b8;
+    
+    /* Danger Button (Red) */
+    --btn-danger-bg:        #cc0c39;
+    --btn-danger-text:      #ffffff;
+    --btn-danger-hover-bg:  #b00030;
+    
+    /* Success Button (Green) */
+    --btn-success-bg:       #007600;
+    --btn-success-text:     #ffffff;
+    --btn-success-hover-bg: #006400;
+    
+    /* Info Button (Teal) */
+    --btn-info-bg:          #007185;
+    --btn-info-text:        #ffffff;
+    --btn-info-hover-bg:    #005a6a;
+}
+
+/* ══════════════════════════════════════════
+   COMPONENT TOKENS - INPUTS
+   ══════════════════════════════════════════ */
+:root {
+    --input-bg:           #ffffff;
+    --input-border:       #888c8c;
+    --input-border-hover: #565959;
+    --input-border-focus: #e77600;
+    --input-text:         #0f1111;
+    --input-placeholder:  #b3b3b3;
+    --input-disabled-bg:  #f3f3f3;
+    --input-disabled-text: #b3b3b3;
+    --input-height:       2.5rem;  /* 40px */
+    --input-padding-x:    0.75rem; /* 12px */
+}
+
+/* ══════════════════════════════════════════
+   COMPONENT TOKENS - CARDS
+   ══════════════════════════════════════════ */
+:root {
+    --card-bg:            #ffffff;
+    --card-border:        #ddd;
+    --card-shadow:        var(--shadow-sm);
+    --card-shadow-hover:  var(--shadow-lg);
+    --card-radius:        var(--radius-md);
+    --card-padding:       var(--space-4);
+}
+
+/* ══════════════════════════════════════════
+   COMPONENT TOKENS - BADGES
+   ══════════════════════════════════════════ */
+:root {
+    --badge-pending-bg:     #fff4e0;
+    --badge-pending-text:   #e47911;
+    --badge-confirmed-bg:   #e8f0fe;
+    --badge-confirmed-text: #0066c0;
+    --badge-success-bg:     #f0fdf4;
+    --badge-success-text:   #007600;
+    --badge-error-bg:       #fff1f2;
+    --badge-error-text:     #cc0c39;
+    --badge-warning-bg:     #fef3c7;
+    --badge-warning-text:   #f59e0b;
+}
+
+/* ══════════════════════════════════════════
+   BREAKPOINTS (for reference in media queries)
+   ══════════════════════════════════════════ */
+:root {
+    --breakpoint-sm:  480px;
+    --breakpoint-md:  768px;
+    --breakpoint-lg:  1024px;
+    --breakpoint-xl:  1280px;
+    --breakpoint-2xl: 1440px;
+    --breakpoint-3xl: 1920px;
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - BUTTONS
+   ══════════════════════════════════════════ */
+
+/* Base button styles */
+.ds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-tight);
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.ds-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ds-btn-primary {
+    background: var(--btn-primary-bg);
+    border-color: var(--btn-primary-border);
+    color: var(--btn-primary-text);
+}
+
+.ds-btn-primary:hover:not(:disabled) {
+    background: var(--btn-primary-hover-bg);
+    border-color: var(--btn-primary-hover-border);
+}
+
+.ds-btn-primary:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+
+.ds-btn-secondary {
+    background: var(--btn-secondary-bg);
+    border-color: var(--btn-secondary-border);
+    color: var(--btn-secondary-text);
+}
+
+.ds-btn-secondary:hover:not(:disabled) {
+    background: var(--btn-secondary-hover-bg);
+    border-color: var(--btn-secondary-hover-border);
+}
+
+.ds-btn-danger {
+    background: var(--btn-danger-bg);
+    border-color: var(--btn-danger-bg);
+    color: var(--btn-danger-text);
+}
+
+.ds-btn-danger:hover:not(:disabled) {
+    background: var(--btn-danger-hover-bg);
+    border-color: var(--btn-danger-hover-bg);
+}
+
+.ds-btn-success {
+    background: var(--btn-success-bg);
+    border-color: var(--btn-success-bg);
+    color: var(--btn-success-text);
+}
+
+.ds-btn-success:hover:not(:disabled) {
+    background: var(--btn-success-hover-bg);
+}
+
+.ds-btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--text-sm);
+}
+
+.ds-btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--text-lg);
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - INPUTS
+   ══════════════════════════════════════════ */
+
+.ds-input {
+    width: 100%;
+    height: var(--input-height);
+    padding: 0 var(--input-padding-x);
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    color: var(--input-text);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ds-input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.ds-input:hover:not(:disabled) {
+    border-color: var(--input-border-hover);
+}
+
+.ds-input:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: var(--shadow-focus);
+}
+
+.ds-input:disabled {
+    background: var(--input-disabled-bg);
+    color: var(--input-disabled-text);
+    cursor: not-allowed;
+}
+
+.ds-input-error {
+    border-color: var(--border-error);
+}
+
+.ds-input-error:focus {
+    box-shadow: var(--shadow-focus-error);
+}
+
+.ds-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - CARDS
+   ══════════════════════════════════════════ */
+
+.ds-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    padding: var(--card-padding);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.ds-card-hover:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.ds-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.ds-card-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - BADGES
+   ══════════════════════════════════════════ */
+
+.ds-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.25rem 0.625rem;
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    border-radius: var(--radius-base);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+}
+
+.ds-badge-success {
+    background: var(--badge-success-bg);
+    color: var(--badge-success-text);
+}
+
+.ds-badge-warning {
+    background: var(--badge-warning-bg);
+    color: var(--badge-warning-text);
+}
+
+.ds-badge-error {
+    background: var(--badge-error-bg);
+    color: var(--badge-error-text);
+}
+
+.ds-badge-info {
+    background: var(--badge-confirmed-bg);
+    color: var(--badge-confirmed-text);
+}
+
+.ds-badge-pending {
+    background: var(--badge-pending-bg);
+    color: var(--badge-pending-text);
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - LOADING
+   ══════════════════════════════════════════ */
+
+.ds-spinner {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--gray-300);
+    border-top-color: var(--brand-orange);
+    border-radius: var(--radius-full);
+    animation: ds-spin 0.6s linear infinite;
+}
+
+.ds-spinner-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 3px;
+}
+
+@keyframes ds-spin {
+    to { transform: rotate(360deg); }
+}
+
+.ds-skeleton {
+    background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-300) 50%, var(--gray-200) 75%);
+    background-size: 200% 100%;
+    animation: ds-skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--radius-base);
+}
+
+@keyframes ds-skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - LAYOUT
+   ══════════════════════════════════════════ */
+
+.ds-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+.ds-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-4);
+}
+
+.ds-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-4);
+}
+
+.ds-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-4);
+}
+
+/* ══════════════════════════════════════════
+   UTILITY CLASSES - ACCESSIBILITY
+   ══════════════════════════════════════════ */
+
+.ds-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.ds-focus-visible:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE UTILITIES
+   ══════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+    .ds-hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .ds-hide-desktop {
+        display: none !important;
+    }
+}
+
+/* ══════════════════════════════════════════
+   REDUCED MOTION
+   ══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

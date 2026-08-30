@@ -1,0 +1,539 @@
+/* =============================================
+   Profile.css  –  Amazon-style account page
+   ============================================= */
+
+.pf-page {
+    background: #eaeded;
+    min-height: 100vh;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    color: #0f1111;
+}
+
+/* ── Loading ── */
+.pf-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 16px;
+    color: #565959;
+    font-size: 0.9rem;
+}
+.pf-spinner {
+    width: 40px; height: 40px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #f90;
+    border-radius: 50%;
+    animation: pf-spin 0.75s linear infinite;
+}
+@keyframes pf-spin { to { transform: rotate(360deg); } }
+
+/* ── Toast ── */
+.pf-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    animation: pf-fadeup 0.25s ease;
+}
+@keyframes pf-fadeup {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.pf-toast--success { background: #007600; color: #fff; }
+.pf-toast--error   { background: #cc0c39; color: #fff; }
+.pf-toast--warn    { background: #e47911; color: #fff; }
+
+/* ── Inner container ── */
+.pf-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+}
+
+/* ══════════════════════════════════════════════
+   HERO BANNER
+   ══════════════════════════════════════════════ */
+.pf-hero {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.pf-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #131921 0%, #232f3e 50%, #37475a 100%);
+    z-index: 0;
+}
+
+/* subtle Amazon-style chevron pattern overlay */
+.pf-hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.02) 40px,
+        rgba(255,255,255,0.02) 80px
+    );
+}
+
+.pf-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 32px 28px;
+    flex-wrap: wrap;
+}
+
+/* ── Avatar circle ── */
+.pf-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #febd69, #f90);
+    color: #111;
+    font-size: 1.5rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    letter-spacing: -1px;
+    user-select: none;
+}
+
+.pf-hero-info   { flex: 1; min-width: 0; }
+.pf-hero-name   { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 4px; }
+.pf-hero-email  { font-size: 0.88rem; color: #ccc; margin: 0 0 4px; }
+.pf-hero-since  { font-size: 0.78rem; color: #aaa; margin: 0; }
+
+.pf-signout-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    border-radius: 3px;
+    padding: 8px 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+}
+.pf-signout-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: #fff;
+}
+
+/* ══════════════════════════════════════════════
+   MAIN GRID
+   ══════════════════════════════════════════════ */
+.pf-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
+    align-items: start;
+}
+
+/* ── Card base ── */
+.pf-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.pf-card:last-child { margin-bottom: 0; }
+
+.pf-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.pf-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f1111;
+    margin: 0;
+}
+
+/* ── Edit / See all buttons ── */
+.pf-edit-btn {
+    background: none;
+    border: none;
+    color: #007185;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    transition: color 0.12s;
+}
+.pf-edit-btn:hover { color: #c7511f; text-decoration: underline; }
+
+.pf-see-all {
+    font-size: 0.82rem;
+    color: #007185;
+    text-decoration: none;
+    font-weight: 500;
+}
+.pf-see-all:hover { color: #c7511f; text-decoration: underline; }
+
+/* ── Account info grid ── */
+.pf-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.pf-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pf-info-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #565959;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.pf-info-value {
+    font-size: 0.92rem;
+    color: #0f1111;
+    font-weight: 400;
+    word-break: break-all;
+}
+
+.pf-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ── Security row ── */
+.pf-security-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.pf-sec-label { font-size: 0.9rem; font-weight: 600; color: #0f1111; margin: 0 0 2px; }
+.pf-sec-sub   { font-size: 0.78rem; color: #565959; margin: 0; }
+
+/* ── Quick links grid ── */
+.pf-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.pf-quick-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 8px;
+    border: 1px solid #e7e7e7;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #0f1111;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    text-align: center;
+}
+.pf-quick-item:hover {
+    border-color: #f90;
+    background: #fffbf0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pf-quick-icon  { font-size: 1.5rem; line-height: 1; }
+.pf-quick-label { font-size: 0.75rem; font-weight: 600; color: #0f1111; line-height: 1.3; }
+.pf-quick-item:hover .pf-quick-label { color: #c7511f; }
+
+/* ── Orders CTA ── */
+.pf-orders-cta { font-size: 0.88rem; color: #565959; margin: 0 0 14px; }
+
+.pf-orders-btn {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border: 1px solid #FCD200;
+    border-radius: 20px;
+    padding: 9px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(213,154,0,0.3);
+    transition: background 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+}
+.pf-orders-btn:hover {
+    background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%);
+    box-shadow: 0 3px 8px rgba(213,154,0,0.45);
+}
+
+/* ══════════════════════════════════════════════
+   MODALS
+   ══════════════════════════════════════════════ */
+.pf-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,17,17,0.55);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: pf-fadeIn 0.18s ease;
+}
+@keyframes pf-fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.pf-modal {
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    animation: pf-slideUp 0.22s ease;
+    overflow: hidden;
+}
+@keyframes pf-slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.pf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 16px;
+    border-bottom: 1px solid #e7e7e7;
+    background: #f7f7f7;
+}
+
+.pf-modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f1111;
+    margin: 0;
+}
+
+.pf-modal-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #565959;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: background 0.12s, color 0.12s;
+    line-height: 1;
+}
+.pf-modal-close:hover { background: #e7e7e7; color: #cc0c39; }
+
+.pf-modal-form { padding: 20px 24px 24px; }
+
+/* ── Form fields ── */
+.pf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 14px;
+}
+
+.pf-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0f1111;
+}
+.pf-req { color: #cc0c39; }
+
+.pf-input {
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    padding: 9px 12px;
+    font-size: 0.88rem;
+    color: #0f1111;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: #fff;
+}
+.pf-input:focus {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228,121,17,0.25);
+}
+
+/* ── Phone prefix ── */
+.pf-phone-wrap {
+    display: flex;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pf-phone-wrap:focus-within {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228,121,17,0.25);
+}
+.pf-phone-prefix {
+    background: #f0f2f2;
+    padding: 9px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f1111;
+    border-right: 1px solid #a6a6a6;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.pf-input--phone {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    box-shadow: none !important;
+}
+.pf-input--phone:focus { box-shadow: none !important; }
+
+/* ── Password with eye toggle ── */
+.pf-pwd-wrap {
+    display: flex;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pf-pwd-wrap:focus-within {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228,121,17,0.25);
+}
+.pf-input--pwd {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    box-shadow: none !important;
+}
+.pf-input--pwd:focus { box-shadow: none !important; }
+.pf-pwd-eye {
+    background: #f0f2f2;
+    border: none;
+    border-left: 1px solid #a6a6a6;
+    padding: 0 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: background 0.12s;
+}
+.pf-pwd-eye:hover { background: #e7e7e7; }
+
+.pf-pwd-hint {
+    font-size: 0.78rem;
+    color: #565959;
+    margin: -6px 0 12px;
+}
+
+/* ── Modal action row ── */
+.pf-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e7e7e7;
+}
+
+.pf-save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex: 1;
+    background: linear-gradient(180deg, #FFD814 0%, #FFA41C 100%);
+    border: 1px solid #FCD200;
+    border-radius: 20px;
+    padding: 10px 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #111;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(213,154,0,0.35);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    font-family: inherit;
+}
+.pf-save-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, #F7CA00 0%, #F08804 100%);
+    box-shadow: 0 3px 8px rgba(213,154,0,0.5);
+}
+.pf-save-btn:active:not(:disabled) { transform: scale(0.98); }
+.pf-save-btn:disabled { opacity: 0.6; cursor: wait; }
+
+.pf-cancel-btn {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #a6a6a6;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f1111;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s, border-color 0.12s;
+}
+.pf-cancel-btn:hover { background: #f7f7f7; border-color: #007185; color: #007185; }
+
+/* ── Button spinner ── */
+.pf-btn-spin {
+    display: inline-block;
+    width: 13px; height: 13px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: pf-spin 0.65s linear infinite;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .pf-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    .pf-hero-content { padding: 24px 16px; gap: 14px; }
+    .pf-avatar       { width: 56px; height: 56px; font-size: 1.2rem; }
+    .pf-hero-name    { font-size: 1.15rem; }
+    .pf-signout-btn  { margin-left: 0; }
+    .pf-info-grid    { grid-template-columns: 1fr; gap: 14px; }
+    .pf-quick-grid   { grid-template-columns: repeat(2, 1fr); }
+    .pf-card         { padding: 16px; }
+    .pf-modal        { max-width: 100%; border-radius: 12px 12px 0 0; }
+    .pf-backdrop     { align-items: flex-end; padding: 0; }
+}

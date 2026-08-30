@@ -1,0 +1,171 @@
+/* =============================================
+   index.css  –  Global base styles
+   Amazon-style design system
+   ============================================= */
+
+@import "tailwindcss";
+@import "./styles/design-tokens.css";
+
+/* ---------- CSS Reset / Base ---------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    background: #eaeded;
+    color: #0f1111;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* ---------- Root – NO width/flex constraints ---------- */
+#root {
+    width: 100%;
+    min-height: 100vh;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+/* push footer to bottom on short pages */
+#root > .ft-root { margin-top: auto; }
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    font-weight: 700;
+    color: #0f1111;
+    line-height: 1.3;
+}
+
+p { margin: 0; }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover { text-decoration: none; }
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+input, select, textarea {
+    font-family: inherit;
+}
+
+/* ---------- Amazon colour tokens ---------- */
+:root {
+    --amz-navy:    #131921;
+    --amz-dark:    #232f3e;
+    --amz-yellow:  #febd69;
+    --amz-orange:  #f90;
+    --amz-orange2: #e47911;
+    --amz-teal:    #007185;
+    --amz-red:     #cc0c39;
+    --amz-green:   #007600;
+    --amz-text:    #0f1111;
+    --amz-muted:   #565959;
+    --amz-border:  #ddd;
+    --amz-bg:      #eaeded;
+    --amz-white:   #fff;
+    --amz-card-shadow: 0 2px 5px rgba(15,17,17,0.15);
+}
+
+/* ---------- Utility: Amazon link style ---------- */
+.amz-link {
+    color: var(--amz-teal);
+    font-size: 0.85rem;
+}
+
+.amz-link:hover {
+    color: var(--amz-red);
+    text-decoration: underline;
+}
+
+/* ---------- Scrollbar (Webkit) ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #aaa; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #888; }
+
+/* ---------- Admin Dashboard Layout ---------- */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  width: 100%;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.primary-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.secondary-stats {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.seller-applications,
+.charts-grid {
+  width: 100%;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .secondary-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .primary-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .secondary-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .primary-stats,
+  .secondary-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-content {
+    gap: 16px;
+  }
+}
