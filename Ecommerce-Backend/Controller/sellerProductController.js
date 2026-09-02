@@ -307,6 +307,8 @@ const deleteSellerProduct = async (req, res) => {
   }
 };
 
+const mongoose = require("mongoose");
+
 // ================= GET SELLER PRODUCT BY ID =================
 // GET /seller/products/:id
 const getSellerProductById = async (req, res) => {
@@ -314,13 +316,28 @@ const getSellerProductById = async (req, res) => {
     const sellerId = getSellerIdFromReq(req);
     const productId = req.params.id;
 
-    // MUST enforce ownership server-side
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid product ID format",
+      });
+    }
+
+    // Enforce ownership server-side
     const product = await Product.findOne({ _id: productId, seller: sellerId });
 
     if (!product) {
+      // Check if product exists under another seller to distinguish 403 from 404
+      const existingProduct = await Product.findById(productId);
+      if (existingProduct) {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. You do not own this product.",
+        });
+      }
       return res.status(404).json({
         success: false,
-        message: "Product not found or access denied",
+        message: "Product not found",
       });
     }
 
@@ -337,6 +354,7 @@ const getSellerProductById = async (req, res) => {
     });
   }
 };
+
 
 module.exports = {
   createSellerProduct,

@@ -1,17 +1,19 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSellerProductById, getSellerProducts, updateSellerProduct } from "../api/sellerApi";
+import { getSellerProductById, updateSellerProduct } from "../api/sellerApi";
 import {
   FiArrowLeft,
   FiUpload,
   FiAlertCircle,
   FiSave,
   FiRefreshCw,
+  FiCheckCircle,
 } from "react-icons/fi";
 
 export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isFetchingRef = useRef(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -26,69 +28,78 @@ export default function EditProduct() {
   const [existingImage, setExistingImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  
+
   const [fetching, setFetching] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [isDirty, setIsDirty] = useState(false);
 
-  const fetchProductDetails = useCallback(async () => {
-    if (!id) return;
-    try {
-      setFetching(true);
-      setError("");
-
-      let p = null;
-
-      // Tier 1: Attempt direct single product endpoint GET /seller/products/:id
-      try {
-        const res = await getSellerProductById(id);
-        p = res.data?.product || res.product;
-      } catch (singleErr) {
-        console.warn("Direct GET /seller/products/:id endpoint failed, attempting catalog fallback:", singleErr.message);
-        
-        // Tier 2: Fallback to seller product catalog list GET /seller/products
-        if (singleErr.response?.status === 404 || singleErr.response?.status === 405 || !singleErr.response) {
-          const listRes = await getSellerProducts();
-          const productList = listRes.data?.products || listRes.products || [];
-          p = productList.find((item) => String(item._id) === String(id) || String(item.id) === String(id));
-        } else {
-          throw singleErr;
-        }
-      }
-
-      if (!p) {
-        setError("Product not found or you do not have permission to edit this listing.");
-        return;
-      }
-
-      setFormData({
-        title: p.title || "",
-        description: p.description || "",
-        price: p.price !== undefined ? String(p.price) : "",
-        stock: p.stock !== undefined ? String(p.stock) : "",
-        category: p.category || "",
-        brand: p.brand || "",
-        discount: p.discount !== undefined ? String(p.discount) : "0",
-      });
-
-      const imgUrl = typeof p.image === "string" ? p.image : p.image?.url;
-      setExistingImage(imgUrl || null);
-      setIsDirty(false);
-    } catch (err) {
-      console.error("Error fetching seller product details:", err);
-      setError(
-        err.response?.data?.message ||
-          "Failed to load product details. Please try again."
-      );
-    } finally {
-      setFetching(false);
-    }
-  }, [id]);
-
   useEffect(() => {
-    fetchProductDetails();
-  }, [fetchProductDetails]);
+    let isMounted = true;
+
+    const fetchProduct = async () => {
+      if (!id || isFetchingRef.current) return;
+      isFetchingRef.current = true;
+
+      try {
+        setFetching(true);
+        setError("");
+
+        // Single direct API call to GET /seller/products/:id
+        const res = await getSellerProductById(id);
+        const p = res.data?.product || res.product;
+
+        if (!isMounted) return;
+
+        if (!p) {
+          setError("Product not found or access denied.");
+          return;
+        }
+
+        setFormData({
+          title: p.title || "",
+          description: p.description || "",
+          price: p.price !== undefined ? String(p.price) : "",
+          stock: p.stock !== undefined ? String(p.stock) : "",
+          category: p.category || "",
+          brand: p.brand || "",
+          discount: p.discount !== undefined ? String(p.discount) : "0",
+        });
+
+        const imgUrl = typeof p.image === "string" ? p.image : p.image?.url;
+        setExistingImage(imgUrl || null);
+        setIsDirty(false);
+      } catch (err) {
+        if (!isMounted) return;
+        console.error("Error fetching product details for edit:", err);
+
+        const status = err.response?.status;
+        const apiMsg = err.response?.data?.message;
+
+        if (status === 404) {
+          setError("Product not found.");
+        } else if (status === 403) {
+          setError("Access denied. You do not have permission to edit this product.");
+        } else if (status === 400) {
+          setError("Invalid product ID format.");
+        } else {
+          setError(apiMsg || "Failed to load product details. Please try again.");
+        }
+      } finally {
+        if (isMounted) {
+          setFetching(false);
+        }
+        isFetchingRef.current = false;
+      }
+    };
+
+    fetchProduct();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,6 +144,7 @@ export default function EditProduct() {
     try {
       setLoading(true);
       setError("");
+      setSuccessMsg("");
 
       const payload = new FormData();
       payload.append("title", formData.title.trim());
@@ -144,9 +156,13 @@ export default function EditProduct() {
       if (formData.discount !== undefined) payload.append("discount", formData.discount);
       if (imageFile) payload.append("image", imageFile);
 
-      await updateSellerProduct(id, payload);
+      const res = await updateSellerProduct(id, payload);
+      setSuccessMsg(res.data?.message || "Product updated successfully!");
       setIsDirty(false);
-      navigate("/products");
+
+      setTimeout(() => {
+        navigate("/products");
+      }, 1000);
     } catch (err) {
       console.error("Error updating seller product:", err);
       setError(
@@ -190,6 +206,29 @@ export default function EditProduct() {
           </p>
         </div>
 
+        {/* Success Alert */}
+        {successMsg && (
+          <div
+            style={{
+              padding: "1rem",
+              backgroundColor: "#ecfdf5",
+              border: "1px solid #a7f3d0",
+              color: "#065f46",
+              fontSize: "0.875rem",
+              borderRadius: "0.75rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              marginBottom: "1.5rem",
+              fontWeight: 600,
+            }}
+          >
+            <FiCheckCircle style={{ fontSize: "1.25rem", color: "#059669", flexShrink: 0 }} />
+            <span>{successMsg}</span>
+          </div>
+        )}
+
+        {/* Error Alert */}
         {error && (
           <div
             style={{
