@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSellerProductById, updateSellerProduct } from "../api/sellerApi";
+import { getSellerProducts, updateSellerProduct } from "../api/sellerApi";
 import {
   FiArrowLeft,
   FiUpload,
@@ -46,9 +46,12 @@ export default function EditProduct() {
         setFetching(true);
         setError("");
 
-        // Single direct API call to GET /seller/products/:id
-        const res = await getSellerProductById(id);
-        const p = res.data?.product || res.product;
+        // Single direct request to existing production endpoint GET /seller/products
+        const res = await getSellerProducts();
+        const productList = res.data?.products || res.products || [];
+        const p = productList.find(
+          (item) => String(item._id) === String(id) || String(item.id) === String(id)
+        );
 
         if (!isMounted) return;
 
@@ -72,20 +75,11 @@ export default function EditProduct() {
         setIsDirty(false);
       } catch (err) {
         if (!isMounted) return;
-        console.error("Error fetching product details for edit:", err);
-
-        const status = err.response?.status;
-        const apiMsg = err.response?.data?.message;
-
-        if (status === 404) {
-          setError("Product not found.");
-        } else if (status === 403) {
-          setError("Access denied. You do not have permission to edit this product.");
-        } else if (status === 400) {
-          setError("Invalid product ID format.");
-        } else {
-          setError(apiMsg || "Failed to load product details. Please try again.");
-        }
+        console.error("Error loading product details:", err);
+        setError(
+          err.response?.data?.message ||
+            "Failed to load product details. Please try again."
+        );
       } finally {
         if (isMounted) {
           setFetching(false);
