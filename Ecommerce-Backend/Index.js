@@ -57,6 +57,7 @@ const allowedOrigins = [
     "http://localhost:5174",
     "http://localhost:3000",
     "http://localhost:4173",
+    "https://mern-full-stack-ecommerce-78493uezw-lokesh-varma28s-projects.vercel.app",
     "https://front-end-ecommerce-2ksnr5kid-lokesh-varma28s-projects.vercel.app",
     "https://front-end-ecommerce-fnrc-gconx3kdb-lokesh-varma28s-projects.vercel.app",
     "https://front-end-ecommerce-l6vn.vercel.app",
@@ -64,11 +65,13 @@ const allowedOrigins = [
     process.env.SELLER_FRONTEND_URL
 ].filter(Boolean);
 
+const vercelOriginRegex = /^https:\/\/(mern-full-stack-ecommerce|front-end-ecommerce).*\.vercel\.app$/;
+
 app.use(
     cors({
         origin: function (origin, callback) {
             if (!origin) return callback(null, true);
-            if (allowedOrigins.includes(origin)) {
+            if (allowedOrigins.includes(origin) || vercelOriginRegex.test(origin)) {
                 return callback(null, true);
             }
             return callback(new Error("Not allowed by CORS"));
