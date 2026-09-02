@@ -307,9 +307,42 @@ const deleteSellerProduct = async (req, res) => {
   }
 };
 
+// ================= GET SELLER PRODUCT BY ID =================
+// GET /seller/products/:id
+const getSellerProductById = async (req, res) => {
+  try {
+    const sellerId = getSellerIdFromReq(req);
+    const productId = req.params.id;
+
+    // MUST enforce ownership server-side
+    const product = await Product.findOne({ _id: productId, seller: sellerId });
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found or access denied",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.error("Error fetching seller product by ID:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch product details",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createSellerProduct,
   getSellerProducts,
+  getSellerProductById,
   updateSellerProduct,
   deleteSellerProduct,
 };
+

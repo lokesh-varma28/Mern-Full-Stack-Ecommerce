@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { getSellerProducts, deleteSellerProduct } from "../api/sellerApi";
 import {
   FiPlus,
+  FiEdit,
   FiTrash2,
   FiRefreshCw,
   FiBox,
   FiAlertTriangle,
   FiGrid,
   FiList,
-  FiTag,
 } from "react-icons/fi";
 
 export default function SellerProducts() {
@@ -200,7 +200,7 @@ export default function SellerProducts() {
                     </h3>
                   </div>
 
-                  <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "0.75rem", marginTop: "0.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "0.75rem", marginTop: "0.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
                     <div>
                       <span style={{ fontSize: "1.125rem", fontWeight: 800, color: "#0f172a", display: "block" }}>
                         {formatCurrency(p.price)}
@@ -210,16 +210,27 @@ export default function SellerProducts() {
                       </span>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(p._id, p.title)}
-                      disabled={isDeleting}
-                      className="sp-btn sp-btn-danger"
-                      style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem" }}
-                      title="Delete Product"
-                    >
-                      <FiTrash2 />
-                    </button>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                      <Link
+                        to={`/products/${p._id}/edit`}
+                        className="sp-btn sp-btn-secondary"
+                        style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem", minHeight: "36px" }}
+                        title="Edit Product"
+                      >
+                        <FiEdit />
+                        <span>Edit</span>
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(p._id, p.title)}
+                        disabled={isDeleting}
+                        className="sp-btn sp-btn-danger"
+                        style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem", minHeight: "36px" }}
+                        title="Delete Product"
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -309,15 +320,27 @@ export default function SellerProducts() {
 
                       {/* Actions */}
                       <td className="text-right">
-                        <button
-                          onClick={() => handleDelete(p._id, p.title)}
-                          disabled={isDeleting}
-                          className="sp-btn sp-btn-danger"
-                          style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem" }}
-                          title="Delete Product"
-                        >
-                          <FiTrash2 />
-                        </button>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", justifyContent: "flex-end" }}>
+                          <Link
+                            to={`/products/${p._id}/edit`}
+                            className="sp-btn sp-btn-secondary"
+                            style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem", minHeight: "34px" }}
+                            title="Edit Product"
+                          >
+                            <FiEdit />
+                            <span>Edit</span>
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(p._id, p.title)}
+                            disabled={isDeleting}
+                            className="sp-btn sp-btn-danger"
+                            style={{ padding: "0.4rem 0.65rem", fontSize: "0.75rem", minHeight: "34px" }}
+                            title="Delete Product"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -330,4 +353,5 @@ export default function SellerProducts() {
     </div>
   );
 }
+
 

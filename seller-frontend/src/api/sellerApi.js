@@ -32,8 +32,11 @@ export const getSellerCustomers = () => API.get("/seller/customers");
 // ================= Seller Products =================
 export const getSellerProducts = () => API.get("/seller/products");
 
+export const getSellerProductById = (id) => API.get(`/seller/products/${id}`);
+
 export const createSellerProduct = (formData) =>
   API.post("/seller/products", formData);
+
 
 export const updateSellerProduct = (id, formData) =>
   API.put(`/seller/products/${id}`, formData);

@@ -53,6 +53,13 @@ router.get(
   getSellerProducts
 );
 
+router.get(
+  "/products/:id",
+  authMiddleware,
+  sellerMiddleware,
+  getSellerProductById
+);
+
 router.put(
   "/products/:id",
   authMiddleware,

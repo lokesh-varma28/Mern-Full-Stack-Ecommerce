@@ -9,6 +9,7 @@ import SellerPending from "./pages/SellerPending";
 import SellerDashboard from "./pages/SellerDashboard";
 import SellerProducts from "./pages/SellerProducts";
 import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
 import SellerOrders from "./pages/SellerOrders";
 import SellerCustomers from "./pages/SellerCustomers";
 import SellerAnalytics from "./pages/SellerAnalytics";
@@ -34,12 +35,15 @@ export default function App() {
             <Route path="/dashboard" element={<SellerDashboard />} />
             <Route path="/products" element={<SellerProducts />} />
             <Route path="/products/add" element={<AddProduct />} />
+            <Route path="/products/:id/edit" element={<EditProduct />} />
+            <Route path="/products/edit/:id" element={<EditProduct />} />
             <Route path="/add-product" element={<AddProduct />} />
             <Route path="/orders" element={<SellerOrders />} />
             <Route path="/customers" element={<SellerCustomers />} />
             <Route path="/analytics" element={<SellerAnalytics />} />
             <Route path="/profile" element={<SellerProfile />} />
           </Route>
+
 
           {/* Catch-all redirect */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
