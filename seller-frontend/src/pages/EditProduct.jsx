@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSellerProducts, updateSellerProduct } from "../api/sellerApi";
+import { getSellerProductById, updateSellerProduct } from "../api/sellerApi";
 import {
   FiArrowLeft,
   FiUpload,
@@ -13,7 +13,6 @@ import {
 export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const isFetchingRef = useRef(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -39,19 +38,15 @@ export default function EditProduct() {
     let isMounted = true;
 
     const fetchProduct = async () => {
-      if (!id || isFetchingRef.current) return;
-      isFetchingRef.current = true;
+      if (!id) return;
 
       try {
         setFetching(true);
         setError("");
 
-        // Single direct request to existing production endpoint GET /seller/products
-        const res = await getSellerProducts();
-        const productList = res.data?.products || res.products || [];
-        const p = productList.find(
-          (item) => String(item._id) === String(id) || String(item.id) === String(id)
-        );
+        // Direct GET request to seller product by ID endpoint
+        const res = await getSellerProductById(id);
+        const p = res.data?.product || res.product;
 
         if (!isMounted) return;
 
@@ -84,7 +79,6 @@ export default function EditProduct() {
         if (isMounted) {
           setFetching(false);
         }
-        isFetchingRef.current = false;
       }
     };
 
