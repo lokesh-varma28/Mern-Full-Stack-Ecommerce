@@ -61,6 +61,7 @@ const allowedOrigins = [
     "https://front-end-ecommerce-2ksnr5kid-lokesh-varma28s-projects.vercel.app",
     "https://front-end-ecommerce-fnrc-gconx3kdb-lokesh-varma28s-projects.vercel.app",
     "https://front-end-ecommerce-l6vn.vercel.app",
+    "https://musical-medovik-163932.netlify.app",
     process.env.FRONTEND_URL,
     process.env.SELLER_FRONTEND_URL
 ].filter(Boolean);
