@@ -22,7 +22,20 @@ const {
 const {
   getSellerProfile,
   updateSellerProfile,
+  uploadSellerAvatar,
+  uploadSellerCover,
 } = require("../Controller/sellerProfileController");
+const uploadMemory = require("../MiddleWare/uploadMemory");
+
+const handleSellerUpload = (field) => (req, res, next) => {
+  uploadMemory.single(field)(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message || "Image upload failed" });
+    }
+    next();
+  });
+};
+
 
 // All seller product routes require authMiddleware + sellerMiddleware
 router.post(
@@ -98,6 +111,22 @@ router.put(
   authMiddleware,
   sellerMiddleware,
   updateSellerProfile
+);
+
+router.post(
+  "/profile/avatar",
+  authMiddleware,
+  sellerMiddleware,
+  handleSellerUpload("avatar"),
+  uploadSellerAvatar
+);
+
+router.post(
+  "/profile/cover",
+  authMiddleware,
+  sellerMiddleware,
+  handleSellerUpload("coverImage"),
+  uploadSellerCover
 );
 
 module.exports = router;

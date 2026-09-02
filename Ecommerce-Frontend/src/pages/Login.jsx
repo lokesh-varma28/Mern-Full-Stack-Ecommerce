@@ -11,7 +11,7 @@ export default function Login() {
     const location       = useLocation();
     const { login }      = useAuth();
 
-    // Where to send the user after login (defaults to "/" or "/admin")
+    // Where to send the user after login (defaults to "/")
     const from = location.state?.from?.pathname || null;
 
     const [form,     setForm]     = useState({ email: "", password: "" });
@@ -41,8 +41,7 @@ export default function Login() {
             // ✅ AuthContext — updates Navbar instantly, no page reload needed
             login(user, token);
 
-            if (user.role === "admin") navigate("/admin");
-            else navigate(from || "/");
+            navigate(from || "/");
         } catch (err) {
             showToast(err.response?.data?.message || "Login failed. Please try again.");
         } finally {
@@ -157,9 +156,8 @@ export default function Login() {
 
                 {/* Google */}
                 <GoogleSignInButton
-                    onSuccess={(user) => {
-                        if (user.role === "admin") navigate("/admin");
-                        else navigate(from || "/");
+                    onSuccess={() => {
+                        navigate(from || "/");
                     }}
                     onError={(msg) => showToast(msg)}
                 />

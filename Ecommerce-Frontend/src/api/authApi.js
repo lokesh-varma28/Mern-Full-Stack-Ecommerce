@@ -12,6 +12,9 @@ export const refreshToken    = (data) => API.post("/refresh-token",  data);
 // ── Profile ───────────────────────────────────────────────────────────────
 export const getProfile      = ()     => API.get("/profile");
 export const updateProfile   = (data) => API.put("/update-profile",  data);
+export const uploadAvatar    = (formData) => API.post("/profile/avatar", formData, { headers: { "Content-Type": "multipart/form-data" } });
+export const uploadCover     = (formData) => API.post("/profile/cover",  formData, { headers: { "Content-Type": "multipart/form-data" } });
+
 
 // ── Google OAuth ──────────────────────────────────────────────────────────
 // credential = Google id_token string returned by @react-oauth/google

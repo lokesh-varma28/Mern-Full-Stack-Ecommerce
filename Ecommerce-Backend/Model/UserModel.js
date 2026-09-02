@@ -25,6 +25,18 @@ var userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    avatarPublicId: {
+        type: String,
+        default: null
+    },
+    coverImage: {
+        type: String,
+        default: null
+    },
+    coverImagePublicId: {
+        type: String,
+        default: null
+    },
     authProvider: {
         type: String,
         enum: ["local", "google"],

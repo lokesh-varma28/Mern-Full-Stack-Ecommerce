@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getProfile, updateProfile } from "../api/authApi";
+import { getProfile, updateProfile, uploadAvatar, uploadCover } from "../api/authApi";
+import { useAuth } from "../context/AuthContext";
 import "./Profile.css";
 
 const QUICK_LINKS = [
@@ -11,6 +12,9 @@ const QUICK_LINKS = [
     { icon: "⚖️", label: "Compare",         to: "/compare"  },
     { icon: "🔄", label: "Returns",         to: "/returns"  },
 ];
+
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
 function Avatar({ name }) {
     const initials = (name || "U")
@@ -33,13 +37,16 @@ function Toast({ msg, type }) {
 
 export default function Profile() {
     const navigate = useNavigate();
+    const { updateUser: syncAuthUser, logout } = useAuth();
 
-    const [user,        setUser]        = useState(null);
-    const [loading,     setLoading]     = useState(true);
-    const [editOpen,    setEditOpen]    = useState(false);
-    const [pwdOpen,     setPwdOpen]     = useState(false);
-    const [saving,      setSaving]      = useState(false);
-    const [toast,       setToast]       = useState({ msg: "", type: "success" });
+    const [user,            setUser]            = useState(null);
+    const [loading,         setLoading]         = useState(true);
+    const [editOpen,        setEditOpen]        = useState(false);
+    const [pwdOpen,         setPwdOpen]         = useState(false);
+    const [saving,          setSaving]          = useState(false);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const [uploadingCover,  setUploadingCover]  = useState(false);
+    const [toast,           setToast]           = useState({ msg: "", type: "success" });
 
     const [editForm,    setEditForm]    = useState({ name: "", email: "", mobile: "" });
     const [pwdForm,     setPwdForm]     = useState({ currentPassword: "", newPassword: "", confirm: "" });
@@ -51,6 +58,18 @@ export default function Profile() {
         setTimeout(() => setToast({ msg: "", type: "success" }), 3200);
     }, []);
 
+    /* ── validate image file ── */
+    const validateImageFile = (file) => {
+        if (!file) return "No file selected.";
+        if (!ALLOWED_IMAGE_TYPES.includes(file.type.toLowerCase())) {
+            return "Invalid image format. Please select a JPG, JPEG, PNG, or WEBP image.";
+        }
+        if (file.size > MAX_IMAGE_SIZE) {
+            return "File size is too large. Maximum size allowed is 5MB.";
+        }
+        return null;
+    };
+
     /* ── load profile ── */
     const loadProfile = useCallback(async () => {
         try {
@@ -61,7 +80,7 @@ export default function Profile() {
             setEditForm({
                 name:   data.name   || "",
                 email:  data.email  || "",
-                mobile: data.mobile || "",
+                mobile: data.phone  || data.mobile || "",
             });
         } catch (err) {
             console.error(err);
@@ -72,6 +91,62 @@ export default function Profile() {
     }, [showToast]);
 
     useEffect(() => { loadProfile(); }, [loadProfile]);
+
+    /* ── upload avatar ── */
+    const handleAvatarChange = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const errMessage = validateImageFile(file);
+        if (errMessage) {
+            showToast(errMessage, "warn");
+            e.target.value = "";
+            return;
+        }
+
+        setUploadingAvatar(true);
+        try {
+            const formData = new FormData();
+            formData.append("avatar", file);
+            const res = await uploadAvatar(formData);
+            const updated = res.data?.user || res.data;
+            setUser(updated);
+            syncAuthUser(updated);
+            showToast("Profile photo updated successfully!");
+        } catch (err) {
+            showToast(err.response?.data?.message || "Failed to upload profile photo", "error");
+        } finally {
+            setUploadingAvatar(false);
+            e.target.value = "";
+        }
+    };
+
+    /* ── upload cover banner ── */
+    const handleCoverChange = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const errMessage = validateImageFile(file);
+        if (errMessage) {
+            showToast(errMessage, "warn");
+            e.target.value = "";
+            return;
+        }
+
+        setUploadingCover(true);
+        try {
+            const formData = new FormData();
+            formData.append("coverImage", file);
+            const res = await uploadCover(formData);
+            const updated = res.data?.user || res.data;
+            setUser(updated);
+            syncAuthUser(updated);
+            showToast("Profile cover updated successfully!");
+        } catch (err) {
+            showToast(err.response?.data?.message || "Failed to upload cover banner", "error");
+        } finally {
+            setUploadingCover(false);
+            e.target.value = "";
+        }
+    };
 
     /* ── save name / email / mobile ── */
     const handleSaveInfo = async (e) => {
@@ -86,7 +161,7 @@ export default function Profile() {
             });
             const updated = res.data?.user || res.data;
             setUser(updated);
-            localStorage.setItem("user", JSON.stringify(updated));
+            syncAuthUser(updated);
             setEditOpen(false);
             showToast("Profile updated successfully");
         } catch (err) {
@@ -123,8 +198,7 @@ export default function Profile() {
 
     /* ── sign out ── */
     const handleSignOut = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        logout();
         navigate("/login");
     };
 
@@ -156,9 +230,99 @@ export default function Profile() {
 
                 {/* ══ HERO BANNER ══ */}
                 <div className="pf-hero">
-                    <div className="pf-hero-bg" />
+                    {user?.coverImage ? (
+                        <img
+                            src={user.coverImage}
+                            alt="Profile Cover Banner"
+                            className="pf-cover-img"
+                        />
+                    ) : (
+                        <div className="pf-hero-bg" />
+                    )}
+
+                    {/* Cover Photo Camera Button Overlay */}
+                    <label
+                        htmlFor="pf-cover-input"
+                        className={`pf-cover-edit-btn ${uploadingCover ? "pf-cover-edit-btn--loading" : ""}`}
+                        title="Change profile cover photo"
+                        aria-label="Change profile cover photo"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                document.getElementById("pf-cover-input")?.click();
+                            }
+                        }}
+                    >
+                        {uploadingCover ? (
+                            <>
+                                <span className="pf-btn-spin" />
+                                <span>Uploading...</span>
+                            </>
+                        ) : (
+                            <>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/>
+                                    <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                </svg>
+                                <span>Edit Cover</span>
+                            </>
+                        )}
+                    </label>
+                    <input
+                        id="pf-cover-input"
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/jpg"
+                        onChange={handleCoverChange}
+                        disabled={uploadingCover}
+                        style={{ display: "none" }}
+                    />
+
                     <div className="pf-hero-content">
-                        <Avatar name={user?.name} />
+                        {/* Avatar Container with Camera Badge Overlay */}
+                        <div className="pf-avatar-wrapper">
+                            {user?.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt={user.name || "Customer Avatar"}
+                                    className="pf-avatar-img"
+                                />
+                            ) : (
+                                <Avatar name={user?.name} />
+                            )}
+
+                            <label
+                                htmlFor="pf-avatar-input"
+                                className={`pf-avatar-edit-btn ${uploadingAvatar ? "pf-avatar-edit-btn--loading" : ""}`}
+                                title="Change profile photo"
+                                aria-label="Change profile photo"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        document.getElementById("pf-avatar-input")?.click();
+                                    }
+                                }}
+                            >
+                                {uploadingAvatar ? (
+                                    <span className="pf-btn-spin" />
+                                ) : (
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/>
+                                        <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                    </svg>
+                                )}
+                            </label>
+                            <input
+                                id="pf-avatar-input"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp,image/jpg"
+                                onChange={handleAvatarChange}
+                                disabled={uploadingAvatar}
+                                style={{ display: "none" }}
+                            />
+                        </div>
+
                         <div className="pf-hero-info">
                             <h1 className="pf-hero-name">{user?.name || "Customer"}</h1>
                             <p className="pf-hero-email">{user?.email}</p>
@@ -171,6 +335,7 @@ export default function Profile() {
                         </button>
                     </div>
                 </div>
+
 
                 {/* ══ MAIN GRID ══ */}
                 <div className="pf-grid">

@@ -1,4 +1,5 @@
 const User = require("../Model/UserModel");
+const cloudinary = require("../config/cloudinary");
 
 // Forbidden fields that sellers are not allowed to update
 const FORBIDDEN_FIELDS = [
@@ -21,6 +22,10 @@ const FORBIDDEN_FIELDS = [
   "authProvider",
   "isVerified",
   "sellerId",
+  "avatar",
+  "avatarPublicId",
+  "coverImage",
+  "coverImagePublicId",
 ];
 
 // =========================================================================
@@ -35,7 +40,7 @@ const getSellerProfile = async (req, res) => {
     }
 
     const user = await User.findById(userId).select(
-      "_id name email storeName phone businessAddress role sellerStatus createdAt updatedAt"
+      "_id name email storeName phone businessAddress role sellerStatus avatar coverImage createdAt updatedAt"
     );
 
     if (!user) {
@@ -53,6 +58,8 @@ const getSellerProfile = async (req, res) => {
         businessAddress: user.businessAddress || "",
         role: user.role,
         sellerStatus: user.sellerStatus,
+        avatar: user.avatar || null,
+        coverImage: user.coverImage || null,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
@@ -162,6 +169,8 @@ const updateSellerProfile = async (req, res) => {
         businessAddress: user.businessAddress,
         role: user.role,
         sellerStatus: user.sellerStatus,
+        avatar: user.avatar || null,
+        coverImage: user.coverImage || null,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
@@ -176,7 +185,150 @@ const updateSellerProfile = async (req, res) => {
   }
 };
 
+// =========================================================================
+// SELLER: UPLOAD AVATAR (PROFILE PHOTO)
+// POST /seller/profile/avatar
+// =========================================================================
+const uploadSellerAvatar = async (req, res) => {
+  try {
+    const userId = req.user.userId || req.user._id || req.user.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Authentication required" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No image file provided" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "Seller account not found" });
+    }
+
+    const uploadResult = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "seller_avatars" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      stream.end(req.file.buffer);
+    });
+
+    if (user.avatarPublicId) {
+      try {
+        await cloudinary.uploader.destroy(user.avatarPublicId);
+      } catch (err) {
+        console.error("Failed to delete previous seller avatar on Cloudinary:", err);
+      }
+    }
+
+    user.avatar = uploadResult.secure_url;
+    user.avatarPublicId = uploadResult.public_id;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Seller profile photo updated successfully",
+      seller: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        storeName: user.storeName || "",
+        phone: user.phone || "",
+        businessAddress: user.businessAddress || "",
+        role: user.role,
+        sellerStatus: user.sellerStatus,
+        avatar: user.avatar,
+        coverImage: user.coverImage || null,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (error) {
+    console.error("Error uploading seller avatar:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to upload seller profile photo",
+    });
+  }
+};
+
+// =========================================================================
+// SELLER: UPLOAD STORE COVER BANNER
+// POST /seller/profile/cover
+// =========================================================================
+const uploadSellerCover = async (req, res) => {
+  try {
+    const userId = req.user.userId || req.user._id || req.user.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Authentication required" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No image file provided" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "Seller account not found" });
+    }
+
+    const uploadResult = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "seller_covers" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      stream.end(req.file.buffer);
+    });
+
+    if (user.coverImagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(user.coverImagePublicId);
+      } catch (err) {
+        console.error("Failed to delete previous seller cover image on Cloudinary:", err);
+      }
+    }
+
+    user.coverImage = uploadResult.secure_url;
+    user.coverImagePublicId = uploadResult.public_id;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Store cover banner updated successfully",
+      seller: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        storeName: user.storeName || "",
+        phone: user.phone || "",
+        businessAddress: user.businessAddress || "",
+        role: user.role,
+        sellerStatus: user.sellerStatus,
+        avatar: user.avatar || null,
+        coverImage: user.coverImage,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (error) {
+    console.error("Error uploading seller cover image:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to upload store cover banner",
+    });
+  }
+};
+
 module.exports = {
   getSellerProfile,
   updateSellerProfile,
+  uploadSellerAvatar,
+  uploadSellerCover,
 };
+

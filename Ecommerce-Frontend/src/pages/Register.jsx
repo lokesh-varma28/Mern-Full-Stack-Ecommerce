@@ -176,9 +176,8 @@ export default function Register() {
 
                 {/* Google */}
                 <GoogleSignInButton
-                    onSuccess={(user) => {
-                        if (user.role === "admin") navigate("/admin");
-                        else navigate("/");
+                    onSuccess={() => {
+                        navigate("/");
                     }}
                     onError={(msg) => showToast(msg)}
                 />

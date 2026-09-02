@@ -67,6 +67,48 @@
     margin-bottom: 24px;
     border-radius: 0 0 8px 8px;
     overflow: hidden;
+    min-height: 140px;
+    background: #131921;
+}
+
+.pf-cover-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.85);
+}
+
+.pf-cover-edit-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    background: rgba(19, 25, 33, 0.75);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    user-select: none;
+}
+.pf-cover-edit-btn:hover {
+    background: rgba(35, 47, 62, 0.95);
+    border-color: #febd69;
+    color: #febd69;
+}
+.pf-cover-edit-btn:focus-visible {
+    outline: 2px solid #febd69;
+    outline-offset: 2px;
 }
 
 .pf-hero-bg {
@@ -100,10 +142,27 @@
     flex-wrap: wrap;
 }
 
-/* ── Avatar circle ── */
+/* ── Avatar circle & badge wrapper ── */
+.pf-avatar-wrapper {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+}
+
+.pf-avatar-img {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    background: #fff;
+}
+
 .pf-avatar {
-    width: 72px;
-    height: 72px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     background: linear-gradient(135deg, #febd69, #f90);
     color: #111;
@@ -116,16 +175,46 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.35);
     letter-spacing: -1px;
     user-select: none;
+    border: 3px solid #fff;
 }
 
-.pf-hero-info   { flex: 1; min-width: 0; }
+.pf-avatar-edit-btn {
+    position: absolute;
+    bottom: 0;
+    right: -2px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #febd69;
+    color: #111;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background 0.15s, transform 0.15s;
+    user-select: none;
+    z-index: 2;
+}
+.pf-avatar-edit-btn:hover {
+    background: #f90;
+    transform: scale(1.08);
+}
+.pf-avatar-edit-btn:focus-visible {
+    outline: 2px solid #febd69;
+    outline-offset: 2px;
+}
+
+.pf-hero-info   { flex: 1; min-width: 0; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 .pf-hero-name   { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 4px; }
-.pf-hero-email  { font-size: 0.88rem; color: #ccc; margin: 0 0 4px; }
-.pf-hero-since  { font-size: 0.78rem; color: #aaa; margin: 0; }
+.pf-hero-email  { font-size: 0.88rem; color: #eee; margin: 0 0 4px; }
+.pf-hero-since  { font-size: 0.78rem; color: #ccc; margin: 0; }
 
 .pf-signout-btn {
     margin-left: auto;
-    background: transparent;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(4px);
     border: 1px solid rgba(255,255,255,0.35);
     color: #fff;
     border-radius: 3px;
@@ -138,7 +227,7 @@
     flex-shrink: 0;
 }
 .pf-signout-btn:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     border-color: #fff;
 }
 
@@ -527,13 +616,17 @@
 }
 
 @media (max-width: 640px) {
-    .pf-hero-content { padding: 24px 16px; gap: 14px; }
-    .pf-avatar       { width: 56px; height: 56px; font-size: 1.2rem; }
+    .pf-hero-content { padding: 20px 14px; gap: 12px; }
+    .pf-avatar-wrapper { width: 62px; height: 62px; }
+    .pf-avatar, .pf-avatar-img { width: 62px; height: 62px; font-size: 1.2rem; }
+    .pf-avatar-edit-btn { width: 24px; height: 24px; bottom: -2px; right: -2px; }
+    .pf-cover-edit-btn { top: 10px; right: 10px; padding: 4px 10px; font-size: 0.72rem; }
     .pf-hero-name    { font-size: 1.15rem; }
-    .pf-signout-btn  { margin-left: 0; }
+    .pf-signout-btn  { margin-left: 0; padding: 6px 14px; font-size: 0.78rem; }
     .pf-info-grid    { grid-template-columns: 1fr; gap: 14px; }
     .pf-quick-grid   { grid-template-columns: repeat(2, 1fr); }
     .pf-card         { padding: 16px; }
     .pf-modal        { max-width: 100%; border-radius: 12px 12px 0 0; }
     .pf-backdrop     { align-items: flex-end; padding: 0; }
 }
+

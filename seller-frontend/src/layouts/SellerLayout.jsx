@@ -144,7 +144,16 @@ export default function SellerLayout({ children }) {
           <div className="seller-topbar-right">
             <div className="seller-user-info">
               <div className="seller-user-avatar">
-                {getInitials(user?.name || user?.storeName)}
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.name || "Seller Avatar"}
+                    className="w-full h-full rounded-full object-cover"
+                    style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                  />
+                ) : (
+                  getInitials(user?.name || user?.storeName)
+                )}
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <span style={{ fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.2 }}>

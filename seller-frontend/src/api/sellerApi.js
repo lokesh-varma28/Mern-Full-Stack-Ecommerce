@@ -14,6 +14,16 @@ export const getSellerProfile = () => API.get("/seller/profile");
 
 export const updateSellerProfile = (data) => API.put("/seller/profile", data);
 
+export const uploadSellerAvatar = (formData) =>
+  API.post("/seller/profile/avatar", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+export const uploadSellerCover = (formData) =>
+  API.post("/seller/profile/cover", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
 // ================= Seller Analytics & Customers =================
 export const getSellerAnalytics = () => API.get("/seller/analytics");
 
