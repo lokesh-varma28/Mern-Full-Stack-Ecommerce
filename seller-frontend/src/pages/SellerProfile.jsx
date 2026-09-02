@@ -7,9 +7,7 @@ import {
 } from "../api/sellerApi";
 import { useAuth } from "../context/AuthContext";
 import {
-  FiUser,
   FiShoppingBag,
-  FiMail,
   FiPhone,
   FiMapPin,
   FiCheckCircle,
@@ -18,7 +16,8 @@ import {
   FiSave,
   FiCamera,
   FiImage,
-  FiUploadCloud,
+  FiShield,
+  FiCheck,
 } from "react-icons/fi";
 
 export default function SellerProfile() {
@@ -206,14 +205,15 @@ export default function SellerProfile() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between gap-4">
+    <div style={{ maxWidth: "1000px", margin: "0 auto", paddingBottom: "2rem" }}>
+      {/* Header Bar */}
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "1rem", marginBottom: "1.5rem" }}>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
-            Store Profile & Account Details
+          <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.02em" }}>
+            Merchant Store Profile
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            Manage your store branding, profile photos, contact details, and account settings.
+          <p style={{ fontSize: "0.875rem", color: "#64748b", marginTop: "0.25rem" }}>
+            Manage your store branding, profile photos, contact information, and security settings.
           </p>
         </div>
 
@@ -221,211 +221,214 @@ export default function SellerProfile() {
           onClick={fetchProfile}
           disabled={loading}
           className="sp-btn sp-btn-secondary"
+          style={{ minHeight: "44px", padding: "0 1rem" }}
+          title="Refresh Profile Details"
         >
           <FiRefreshCw className={loading ? "animate-spin" : ""} />
           <span>Refresh</span>
         </button>
       </div>
 
+      {/* Alert Banner */}
       {message.msg && (
         <div
-          className={`p-4 rounded-xl flex items-center gap-2.5 text-sm font-semibold ${
-            message.type === "success"
-              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-              : "bg-rose-50 text-rose-800 border border-rose-200"
-          }`}
+          style={{
+            padding: "1rem",
+            borderRadius: "0.75rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            fontSize: "0.875rem",
+            fontWeight: 600,
+            marginBottom: "1.5rem",
+            backgroundColor: message.type === "success" ? "#ecfdf5" : "#fff1f2",
+            color: message.type === "success" ? "#065f46" : "#9f1239",
+            border: `1px solid ${message.type === "success" ? "#a7f3d0" : "#fecdd3"}`,
+          }}
         >
           {message.type === "success" ? (
-            <FiCheckCircle className="text-lg flex-shrink-0" />
+            <FiCheckCircle style={{ fontSize: "1.25rem", color: "#059669", flexShrink: 0 }} />
           ) : (
-            <FiAlertCircle className="text-lg flex-shrink-0" />
+            <FiAlertCircle style={{ fontSize: "1.25rem", color: "#e11d48", flexShrink: 0 }} />
           )}
           <span>{message.msg}</span>
         </div>
       )}
 
       {loading ? (
-        <div className="sp-card text-center p-8 text-slate-500">
-          Loading merchant profile...
+        <div className="sp-card" style={{ textAlign: "center", padding: "3rem", color: "#64748b" }}>
+          Loading merchant profile details...
         </div>
       ) : (
-        <div className="space-y-6">
-          {/* Store Branding Card: Cover Banner + Avatar */}
-          <div className="sp-card overflow-hidden p-0">
-            {/* Hidden Inputs */}
-            <input
-              type="file"
-              ref={avatarInputRef}
-              accept="image/jpeg,image/png,image/webp,image/jpg"
-              onChange={handleAvatarSelect}
-              className="hidden"
-              aria-label="Upload profile photo file input"
-            />
-            <input
-              type="file"
-              ref={coverInputRef}
-              accept="image/jpeg,image/png,image/webp,image/jpg"
-              onChange={handleCoverSelect}
-              className="hidden"
-              aria-label="Upload store cover banner file input"
-            />
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          {/* Visually Hidden Native File Inputs */}
+          <input
+            type="file"
+            ref={avatarInputRef}
+            accept="image/jpeg,image/png,image/webp,image/jpg"
+            onChange={handleAvatarSelect}
+            style={{ display: "none" }}
+            aria-label="Upload profile photo file input"
+          />
+          <input
+            type="file"
+            ref={coverInputRef}
+            accept="image/jpeg,image/png,image/webp,image/jpg"
+            onChange={handleCoverSelect}
+            style={{ display: "none" }}
+            aria-label="Upload store cover banner file input"
+          />
 
-            {/* Cover Banner Area */}
-            <div className="relative h-48 sm:h-56 w-full bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center overflow-hidden">
+          {/* Controlled Store Branding Header Card */}
+          <div className="sp-profile-header-card">
+            {/* Controlled Cover Banner Area */}
+            <div className="sp-cover-container">
               {profile?.coverImage ? (
                 <img
                   src={profile.coverImage}
                   alt="Store Cover Banner"
-                  className="w-full h-full object-cover"
+                  className="sp-cover-img"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
                 />
               ) : (
-                <div className="text-slate-400 text-center p-4">
-                  <FiImage className="mx-auto text-3xl mb-1 opacity-50" />
-                  <span className="text-xs font-semibold uppercase tracking-wider opacity-75">
-                    No Cover Banner Set
+                <div className="sp-cover-fallback">
+                  <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.5rem" }}>
+                    <FiImage style={{ fontSize: "1.5rem", color: "#cbd5e1" }} />
+                  </div>
+                  <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "#cbd5e1" }}>
+                    No Store Cover Banner
+                  </span>
+                  <span style={{ fontSize: "0.75rem", color: "#94a3b8", marginTop: "0.25rem" }}>
+                    Upload a banner to customize your merchant storefront
                   </span>
                 </div>
               )}
 
-              {/* Uploading Spinner for Cover */}
+              {/* Uploading Overlay for Cover */}
               {uploadingCover && (
-                <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center text-white gap-2 font-medium text-sm">
+                <div style={{ position: "absolute", inset: 0, backgroundColor: "rgba(15, 23, 42, 0.8)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff", gap: "0.75rem", fontWeight: 600, fontSize: "0.875rem", zIndex: 20 }}>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>Uploading Cover Banner...</span>
                 </div>
               )}
 
-              {/* Cover Upload Button */}
+              {/* Cover Camera Button */}
               <button
                 type="button"
                 onClick={() => coverInputRef.current?.click()}
                 disabled={uploadingCover}
+                className="sp-cover-camera-btn"
+                title="Change cover banner"
                 aria-label="Change store cover banner"
-                className="absolute top-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-semibold px-3 py-2 rounded-lg backdrop-blur-md transition flex items-center gap-1.5 border border-white/20 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <FiCamera className="text-sm" />
-                <span>{profile?.coverImage ? "Change Cover Banner" : "Add Cover Banner"}</span>
+                <FiCamera style={{ fontSize: "1.125rem" }} />
               </button>
             </div>
 
-            {/* Avatar & Header Meta Bar */}
-            <div className="px-6 pb-6 pt-0 relative flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16">
-              <div className="flex items-end gap-4">
-                {/* Profile Photo Circle */}
-                <div className="relative group w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white shadow-xl overflow-hidden bg-slate-800 text-white flex items-center justify-center font-bold text-2xl flex-shrink-0">
-                  {profile?.avatar ? (
-                    <img
-                      src={profile.avatar}
-                      alt={profile.name || "Seller Profile"}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span>{getInitials(profile?.name || profile?.storeName)}</span>
-                  )}
+            {/* Profile Avatar & Metadata Bar */}
+            <div className="sp-profile-meta-bar">
+              <div className="sp-avatar-wrapper">
+                {/* Avatar Container with Camera Badge */}
+                <div className="sp-avatar-container">
+                  <div className="sp-avatar-circle">
+                    {profile?.avatar ? (
+                      <img
+                        src={profile.avatar}
+                        alt={profile.name || "Seller Profile"}
+                        className="sp-avatar-img"
+                        style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }}
+                      />
+                    ) : (
+                      <span>{getInitials(profile?.name || profile?.storeName)}</span>
+                    )}
 
-                  {/* Uploading Spinner for Avatar */}
-                  {uploadingAvatar && (
-                    <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center text-white">
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                  )}
+                    {/* Uploading Overlay for Avatar */}
+                    {uploadingAvatar && (
+                      <div style={{ position: "absolute", inset: 0, backgroundColor: "rgba(15, 23, 42, 0.8)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff", zIndex: 20 }}>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Avatar Overlay Action Button */}
+                  {/* Avatar Camera Badge Button */}
                   <button
                     type="button"
                     onClick={() => avatarInputRef.current?.click()}
                     disabled={uploadingAvatar}
-                    aria-label="Upload profile photo"
-                    className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 focus:opacity-100 transition flex flex-col items-center justify-center text-white text-xs font-semibold gap-1 focus:outline-none"
-                    title="Change Profile Photo"
+                    className="sp-avatar-camera-btn"
+                    title="Change profile photo"
+                    aria-label="Change profile photo"
                   >
-                    <FiCamera className="text-base" />
-                    <span>Upload</span>
+                    <FiCamera style={{ fontSize: "0.95rem" }} />
                   </button>
                 </div>
 
-                <div className="mb-2">
-                  <h2 className="text-xl font-bold text-slate-900">
-                    {profile?.storeName || profile?.name || "Merchant Store"}
-                  </h2>
-                  <p className="text-xs text-slate-500 font-medium">
+                <div>
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.625rem" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.02em" }}>
+                      {profile?.storeName || profile?.name || "Merchant Store"}
+                    </h2>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", padding: "0.15rem 0.625rem", borderRadius: "9999px", fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", backgroundColor: "#ecfdf5", color: "#047857", border: "1px solid #a7f3d0" }}>
+                      <FiCheck style={{ color: "#059669" }} />
+                      APPROVED PARTNER
+                    </span>
+                  </div>
+                  <p style={{ fontSize: "0.875rem", color: "#64748b", fontWeight: 500, marginTop: "0.25rem" }}>
                     {profile?.email}
                   </p>
                 </div>
               </div>
-
-              {/* Action button to change profile avatar directly */}
-              <div className="mb-2">
-                <button
-                  type="button"
-                  onClick={() => avatarInputRef.current?.click()}
-                  disabled={uploadingAvatar}
-                  aria-label="Change profile photo"
-                  className="sp-btn sp-btn-secondary text-xs"
-                >
-                  <FiUploadCloud />
-                  <span>Change Profile Photo</span>
-                </button>
-              </div>
             </div>
           </div>
 
-          {/* Read-Only Account Info Card */}
+          {/* Account Security & Identity (Read-Only) Section */}
           <div className="sp-card">
-            <h3 className="font-bold text-slate-900 text-base mb-4 flex items-center gap-2">
-              <FiUser className="text-blue-600" /> Account Security & Identity (Read-Only)
+            <h3 style={{ fontWeight: 700, color: "#0f172a", fontSize: "1rem", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <FiShield style={{ color: "#2563eb", fontSize: "1.125rem" }} />
+              <span>Account Security & Identity (Read-Only)</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-              <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
-                <span className="text-xs font-semibold text-slate-500 block mb-0.5">
-                  Account Owner Name
-                </span>
-                <span className="font-bold text-slate-800">
-                  {profile?.name || "N/A"}
-                </span>
+            <div className="sp-security-grid">
+              <div className="sp-security-box">
+                <span className="sp-security-label">Account Owner</span>
+                <span className="sp-security-value">{profile?.name || "N/A"}</span>
               </div>
 
-              <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
-                <span className="text-xs font-semibold text-slate-500 block mb-0.5">
-                  Email Address
-                </span>
-                <span className="font-bold text-slate-800">
-                  {profile?.email || "N/A"}
-                </span>
+              <div className="sp-security-box">
+                <span className="sp-security-label">Email Address</span>
+                <span className="sp-security-value">{profile?.email || "N/A"}</span>
               </div>
 
-              <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
-                <span className="text-xs font-semibold text-slate-500 block mb-0.5">
-                  Account Role
-                </span>
-                <span className="font-bold text-slate-800 uppercase">
-                  {profile?.role || "SELLER"}
-                </span>
+              <div className="sp-security-box">
+                <span className="sp-security-label">Account Role</span>
+                <span className="sp-security-value" style={{ textTransform: "uppercase" }}>{profile?.role || "SELLER"}</span>
               </div>
 
-              <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
-                <span className="text-xs font-semibold text-slate-500 block mb-0.5">
-                  Seller Status
-                </span>
-                <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold uppercase bg-emerald-100 text-emerald-800">
-                  {profile?.sellerStatus || "APPROVED"}
-                </span>
+              <div className="sp-security-box">
+                <span className="sp-security-label">Seller Status</span>
+                <div>
+                  <span style={{ display: "inline-block", padding: "0.2rem 0.625rem", borderRadius: "9999px", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", backgroundColor: "#dcfce7", color: "#15803d", border: "1px solid #86efac" }}>
+                    {profile?.sellerStatus || "APPROVED"}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Editable Store Profile Card */}
           <div className="sp-card">
-            <h3 className="font-bold text-slate-900 text-base mb-4 flex items-center gap-2">
-              <FiShoppingBag className="text-blue-600" /> Editable Store Profile Details
+            <h3 style={{ fontWeight: 700, color: "#0f172a", fontSize: "1rem", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <FiShoppingBag style={{ color: "#2563eb", fontSize: "1.125rem" }} />
+              <span>Editable Store Profile Details</span>
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="sp-input-group mb-0">
-                <label className="sp-label">Store Name *</label>
-                <div className="relative">
-                  <FiShoppingBag className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="sp-input-group" style={{ marginBottom: 0 }}>
+                <label className="sp-label" style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "#334155" }}>
+                  Store Name *
+                </label>
+                <div style={{ position: "relative" }}>
+                  <FiShoppingBag style={{ position: "absolute", left: "0.875rem", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
                   <input
                     type="text"
                     name="storeName"
@@ -434,15 +437,18 @@ export default function SellerProfile() {
                     required
                     maxLength={100}
                     placeholder="e.g. Acme Superstore"
-                    className="sp-input pl-10"
+                    className="sp-input"
+                    style={{ paddingLeft: "2.5rem", minHeight: "44px" }}
                   />
                 </div>
               </div>
 
-              <div className="sp-input-group mb-0">
-                <label className="sp-label">Contact Phone Number</label>
-                <div className="relative">
-                  <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <div className="sp-input-group" style={{ marginBottom: 0 }}>
+                <label className="sp-label" style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "#334155" }}>
+                  Contact Phone Number
+                </label>
+                <div style={{ position: "relative" }}>
+                  <FiPhone style={{ position: "absolute", left: "0.875rem", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
                   <input
                     type="text"
                     name="phone"
@@ -450,15 +456,18 @@ export default function SellerProfile() {
                     onChange={handleChange}
                     maxLength={25}
                     placeholder="+1 (555) 019-2834"
-                    className="sp-input pl-10"
+                    className="sp-input"
+                    style={{ paddingLeft: "2.5rem", minHeight: "44px" }}
                   />
                 </div>
               </div>
 
-              <div className="sp-input-group mb-0">
-                <label className="sp-label">Business Address</label>
-                <div className="relative">
-                  <FiMapPin className="absolute left-3.5 top-3 text-slate-400" />
+              <div className="sp-input-group" style={{ marginBottom: 0 }}>
+                <label className="sp-label" style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "#334155" }}>
+                  Business Address
+                </label>
+                <div style={{ position: "relative" }}>
+                  <FiMapPin style={{ position: "absolute", left: "0.875rem", top: "0.875rem", color: "#94a3b8" }} />
                   <textarea
                     name="businessAddress"
                     rows={3}
@@ -466,16 +475,18 @@ export default function SellerProfile() {
                     onChange={handleChange}
                     maxLength={300}
                     placeholder="123 Commerce St, Suite 400, New York, NY 10001"
-                    className="sp-textarea pl-10"
+                    className="sp-textarea"
+                    style={{ paddingLeft: "2.5rem", paddingTop: "0.75rem" }}
                   />
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-end">
+              <div style={{ paddingTop: "0.5rem", display: "flex", justifyContent: "flex-end" }}>
                 <button
                   type="submit"
                   disabled={saving}
                   className="sp-btn sp-btn-primary"
+                  style={{ minHeight: "44px", padding: "0 1.5rem" }}
                 >
                   {saving ? (
                     <>
@@ -484,7 +495,7 @@ export default function SellerProfile() {
                     </>
                   ) : (
                     <>
-                      <FiSave />
+                      <FiSave style={{ fontSize: "1rem" }} />
                       <span>Save Profile Changes</span>
                     </>
                   )}
@@ -497,4 +508,8 @@ export default function SellerProfile() {
     </div>
   );
 }
+
+
+
+
 

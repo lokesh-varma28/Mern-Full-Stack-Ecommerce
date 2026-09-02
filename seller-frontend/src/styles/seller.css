@@ -502,6 +502,294 @@ body {
   background-color: #f8fafc;
 }
 
+/* ============================================================
+   Seller Profile Media & Card Layout Styles
+   ============================================================ */
+
+.seller-user-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 9999px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.sp-profile-header-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.sp-cover-container {
+  width: 100%;
+  height: 240px;
+  max-height: 260px;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+  background-color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .sp-cover-container {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sp-cover-container {
+    height: 165px;
+  }
+}
+
+.sp-cover-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+.sp-cover-fallback {
+  color: #94a3b8;
+  text-align: center;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-cover-camera-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sp-cover-camera-btn:hover {
+  background: #0f172a;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.sp-cover-camera-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.sp-profile-meta-bar {
+  padding: 0 1.75rem 1.5rem 1.75rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: -3.5rem;
+}
+
+@media (max-width: 768px) {
+  .sp-profile-meta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -2.5rem;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    gap: 1.25rem;
+  }
+}
+
+.sp-avatar-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .sp-avatar-wrapper {
+    flex-direction: flex-start;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+.sp-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.sp-avatar-circle {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  min-width: 112px;
+  min-height: 112px;
+  max-width: 112px;
+  max-height: 112px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+  overflow: hidden;
+  background-color: #0f172a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .sp-avatar-circle {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    font-size: 1.25rem;
+  }
+}
+
+.sp-avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  display: block !important;
+}
+
+.sp-avatar-camera-btn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: #ffffff;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sp-avatar-camera-btn:hover {
+  background: #2563eb;
+  transform: scale(1.08);
+}
+
+.sp-avatar-camera-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .sp-avatar-camera-btn {
+    width: 34px;
+    height: 34px;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.sp-profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .sp-profile-actions {
+    width: 100%;
+  }
+  .sp-profile-actions .sp-btn {
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Security Grid */
+.sp-security-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .sp-security-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .sp-security-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.sp-security-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sp-security-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.sp-security-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -511,4 +799,5 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
 
