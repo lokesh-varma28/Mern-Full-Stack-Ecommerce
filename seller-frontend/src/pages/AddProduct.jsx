@@ -199,19 +199,21 @@ export default function AddProduct() {
             <label className="sp-label">Product Image</label>
             <div className="border-2 border-dashed border-slate-200 hover:border-blue-400 rounded-xl p-6 text-center transition-colors bg-slate-50">
               {imagePreview ? (
-                <div className="flex flex-col items-center gap-3">
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="w-32 h-32 object-contain rounded-lg border border-slate-200 bg-white p-1"
-                  />
+                <div style={{ display: "flex", flexDirection: "column", itemsCenter: "center", gap: "0.75rem", margin: "0 auto", width: "fit-content" }}>
+                  <div className="sp-image-preview-wrapper">
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="sp-image-preview-img"
+                    />
+                  </div>
                   <button
                     type="button"
                     onClick={() => {
                       setImageFile(null);
                       setImagePreview(null);
                     }}
-                    className="text-xs text-rose-600 font-semibold hover:underline"
+                    style={{ fontSize: "0.75rem", color: "#dc2626", fontWeight: 600, background: "none", border: "none", cursor: "pointer" }}
                   >
                     Remove Image
                   </button>
